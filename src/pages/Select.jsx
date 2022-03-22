@@ -29,7 +29,7 @@ const Select = () => {
       <SelectContainer>
         <Header clickBefore={goBefore} />
         <CareType processNumber={1} />
-        <TextSelectCareType />
+        <TextSelectCareType text={'돌봄 스케줄을 설정해주세요'} />
         <ButtonGroupContainer>
           <ButtonContainer clicked={clicked.allTime} onClick={clickAllTime}>
             <Text
