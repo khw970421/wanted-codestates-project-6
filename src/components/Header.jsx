@@ -2,10 +2,15 @@ import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
 import Text from './Text';
 import styled from '@emotion/styled';
-const Header = () => {
+import PropTypes from 'prop-types';
+const Header = ({ clickBefore }) => {
   return (
     <HeaderContainer>
-      <MdArrowBackIos size={20} style={{ margin: '20px' }} />
+      <MdArrowBackIos
+        size={20}
+        style={{ margin: '20px' }}
+        onClick={clickBefore}
+      />
       <Text
         text={'돌보미 신청하기'}
         fontSize={16}
@@ -25,5 +30,9 @@ const HeaderContainer = styled.div`
   width: 360px;
   justify-content: space-between;
 `;
+
+Header.propTypes = {
+  clickBefore: PropTypes.func,
+};
 
 export default Header;

@@ -18,7 +18,7 @@ const Select = () => {
   return (
     <SelectSideContainer>
       <SelectContainer>
-        <Header />
+        <Header clickBefore={goBefore} />
         <CareType processNumber={1} />
         <TextSelectCareType />
         <ButtonGroupContainer>
