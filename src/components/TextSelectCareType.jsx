@@ -1,16 +1,12 @@
 import React from 'react';
 import Text from './Text';
 import styled from 'styled-components';
-const TextSelectCareType = () => {
+import PropTypes from 'prop-types';
+const TextSelectCareType = ({ text }) => {
   return (
     <TextSelectCareTypeContainer>
       <TextSelectCareTypeSubContainer>
-        <Text
-          text={'돌봄 유형을 선택해주세요'}
-          fontSize={24}
-          bold={'bold'}
-          textCenter={'normal'}
-        />
+        <Text text={text} fontSize={24} bold={'bold'} textCenter={'normal'} />
       </TextSelectCareTypeSubContainer>
     </TextSelectCareTypeContainer>
   );
@@ -25,4 +21,7 @@ const TextSelectCareTypeSubContainer = styled.div`
   margin-left: 16px;
 `;
 
+TextSelectCareType.propTypes = {
+  text: PropTypes.string,
+};
 export default TextSelectCareType;
