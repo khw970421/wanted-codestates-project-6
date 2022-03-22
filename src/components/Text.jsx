@@ -8,6 +8,9 @@ const Text = ({
   color = '#000000',
   width,
   height,
+  verticalMargin = '0px 0px',
+  horizontalMargin = '0px 0px',
+  textCenter = 'center',
 }) => {
   return (
     <CustomText
@@ -16,6 +19,9 @@ const Text = ({
       color={color}
       width={width}
       height={height}
+      verticalMargin={verticalMargin}
+      horizontalMargin={horizontalMargin}
+      textCenter={textCenter}
     >
       {text}
     </CustomText>
@@ -28,7 +34,9 @@ const CustomText = styled.div`
   font-weight: ${({ bold }) => bold};
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
-  text-align: center;
+  margin: ${({ verticalMargin, horizontalMargin }) =>
+    `${horizontalMargin} ${verticalMargin}`};
+  text-align: ${({ textCenter }) => `${textCenter}`};
 `;
 Text.propTypes = {
   text: PropTypes.string,
@@ -37,5 +45,8 @@ Text.propTypes = {
   color: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  verticalMargin: PropTypes.string,
+  horizontalMargin: PropTypes.string,
+  textCenter: PropTypes.string,
 };
 export default Text;
