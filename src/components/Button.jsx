@@ -8,6 +8,7 @@ const Button = ({
   backgroundColor,
   color,
   fontSize,
+  clickButton,
 }) => {
   return (
     <CustomButton
@@ -16,6 +17,7 @@ const Button = ({
       backgroundColor={backgroundColor}
       color={color}
       fontSize={fontSize}
+      onClick={clickButton}
     >
       {text}
     </CustomButton>
@@ -40,6 +42,7 @@ Button.propTypes = {
   backgroundColor: PropTypes.string,
   color: PropTypes.string,
   fontSize: PropTypes.number,
+  clickButton: PropTypes.func,
 };
 
 export default Button;

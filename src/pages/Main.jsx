@@ -2,9 +2,14 @@ import React from 'react';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 const Main = () => {
+  let navigate = useNavigate();
+  const goSelectPage = () => {
+    navigate('/care/select');
+  };
   return (
-    <Real>
+    <MainSideContainer>
       <MainContainer>
         <Text text={'어르신 돌보미'} fontSize={32} width={250} height={52} />
         <Text
@@ -21,14 +26,15 @@ const Main = () => {
           backgroundColor={'#FF8450'}
           color={'#ffffff'}
           fontSize={18}
+          clickButton={goSelectPage}
         />
       </MainContainer>
-    </Real>
+    </MainSideContainer>
   );
 };
 
-const Real = styled.div`
-  background-color: #f6f4fc;
+const MainSideContainer = styled.div`
+  background-color: ${props => props.theme.lightGray};
 `;
 
 const MainContainer = styled.div`
@@ -39,7 +45,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: ${props => props.theme.white};
 `;
 
 export default Main;
