@@ -27,6 +27,7 @@ const Main = () => {
           color={'#ffffff'}
           fontSize={18}
           clickButton={goSelectPage}
+          borderRadius={56}
         />
       </MainContainer>
     </MainSideContainer>
