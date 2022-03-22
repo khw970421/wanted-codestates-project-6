@@ -26,7 +26,7 @@ const Schedule = () => {
       <ScheduleContainer>
         <Header clickBefore={goBefore} />
         <CareType processNumber={2} />
-        <TextSelectCareType />
+        <TextSelectCareType text={'돌봄 스케줄을 설정해주세요'} />
         {selectTime === 'allTime' ? <div>alltime</div> : <div>partTime</div>}
         <NavigateButtonGroupContainer>
           <Button
