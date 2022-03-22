@@ -6,7 +6,8 @@ import CareType from '../components/CareType';
 import TextSelectCareType from '../components/TextSelectCareType';
 import { useNavigate } from 'react-router-dom';
 import { getRepository } from '../utils/axios';
-
+import RoadJibunAddress from '../components/RoadJibunAddress';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 /*eslint-disable*/
 
 const Address = () => {
@@ -21,6 +22,8 @@ const Address = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [searchAddressArr, setSearchAddressArr] = useState([]);
+  const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
   const ModalEvent = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -32,7 +35,6 @@ const Address = () => {
   const checkEnter = ({ code }) => {
     if (code === 'Enter') {
       start(inputValue, refContainer.current);
-      refContainer.current++;
     }
   };
 
@@ -40,11 +42,27 @@ const Address = () => {
     const res = await getRepository(target, page);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
     console.log(filterObj);
+    setSearchAddressArr(filterObj);
   };
 
   const changeValue = ({ target }) => {
-    console.log(target.value);
     setInputValue(target.value);
+  };
+
+  const clickIdx = e => {
+    refContainer.current = e.target.id;
+    start(inputValue, refContainer.current);
+  };
+
+  const findLeft = () => {
+    if (searchCount[0] !== 1) {
+      setSearchCount(searchCount.map(val => val - 5));
+    }
+  };
+  const findRight = () => {
+    const res = searchCount.map(val => val + 5);
+    start(inputValue, searchCount[4] + 1);
+    setSearchCount(res);
   };
 
   return (
@@ -62,6 +80,25 @@ const Address = () => {
               onChange={changeValue}
               value={inputValue}
             />
+            {searchAddressArr.map(val => (
+              <RoadJibunAddress
+                key={val.bdMgtSn}
+                roadAddr={val.roadAddr}
+                jibunAddr={val.jibunAddr}
+                zipNo={val.zipNo}
+              />
+            ))}
+            {searchAddressArr.length !== 0 && (
+              <SearchCountContainer>
+                <FaArrowLeft onClick={findLeft} />
+                {searchCount.map((val, idx) => (
+                  <SearchCount key={idx} id={val} onClick={clickIdx}>
+                    {val}
+                  </SearchCount>
+                ))}
+                <FaArrowRight onClick={findRight} />
+              </SearchCountContainer>
+            )}
           </ModalDiv>
         </ModalOpenContainer>
       ) : (
@@ -110,6 +147,15 @@ const AddressContainer = styled.div`
   height: 812px;
   background-color: white;
   position: relative;
+`;
+
+const SearchCountContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SearchCount = styled.div`
+  margin: 0px 8px;
 `;
 
 const DetailInputContainer = styled.div`
@@ -169,7 +215,6 @@ const ModalDiv = styled.div`
   width: 340px;
   height: 700px;
   border-radius: 3vh;
-  color: purple;
   padding: 1%;
 `;
 
