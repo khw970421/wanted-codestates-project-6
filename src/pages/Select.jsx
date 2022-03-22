@@ -6,15 +6,24 @@ import CareType from '../components/CareType';
 import TextSelectCareType from '../components/TextSelectCareType';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 const Select = () => {
   let navigate = useNavigate();
-
+  const [clicked, setClicked] = useState({ allTime: false, partTime: false });
   const goBefore = () => {
     navigate('/');
   };
   const goAfter = () => {
     navigate('/care/schedule');
   };
+
+  const clickAllTime = () => {
+    setClicked({ allTime: !clicked.allTime, partTime: false });
+  };
+  const clickPartTime = () => {
+    setClicked({ allTime: false, partTime: !clicked.partTime });
+  };
+  console.log(clicked);
   return (
     <SelectSideContainer>
       <SelectContainer>
@@ -22,7 +31,7 @@ const Select = () => {
         <CareType processNumber={1} />
         <TextSelectCareType />
         <ButtonGroupContainer>
-          <ButtonContainer>
+          <ButtonContainer clicked={clicked.allTime} onClick={clickAllTime}>
             <Text
               text={'🌞'}
               bold={'bold'}
@@ -35,9 +44,10 @@ const Select = () => {
               bold={'bold'}
               fontSize={14}
               horizontalMargin={'8px 0px'}
+              clicked={clicked.allTime}
             />
           </ButtonContainer>
-          <ButtonContainer>
+          <ButtonContainer clicked={clicked.partTime} onClick={clickPartTime}>
             <Text
               text={'⏰'}
               bold={'bold'}
@@ -50,6 +60,7 @@ const Select = () => {
               bold={'bold'}
               fontSize={14}
               horizontalMargin={'8px 0px'}
+              clicked={clicked.partTime}
             />
           </ButtonContainer>
         </ButtonGroupContainer>
@@ -97,6 +108,8 @@ const ButtonContainer = styled.div`
   border: 1px solid ${props => props.theme.gray};
   border-radius: 5px;
   margin: 32px 4px;
+  background-color: ${({ theme, clicked }) =>
+    clicked ? theme.main : theme.white};
 `;
 
 const NavigateButtonGroupContainer = styled.div`
