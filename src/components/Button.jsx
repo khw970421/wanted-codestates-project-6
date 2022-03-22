@@ -9,6 +9,8 @@ const Button = ({
   color,
   fontSize,
   clickButton,
+  borderRadius = 3,
+  margin = '0px 0px 0px 0px',
 }) => {
   return (
     <CustomButton
@@ -18,6 +20,8 @@ const Button = ({
       color={color}
       fontSize={fontSize}
       onClick={clickButton}
+      borderRadius={borderRadius}
+      margin={margin}
     >
       {text}
     </CustomButton>
@@ -27,12 +31,13 @@ const Button = ({
 const CustomButton = styled.button`
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
-  border-radius: ${({ height }) => `${height}px`};
+  border-radius: ${({ borderRadius }) => `${borderRadius}px`};
   border: 0px;
   background-color: ${({ backgroundColor }) => backgroundColor};
   color: ${({ color }) => color};
   font-size: ${({ fontSize }) => `${fontSize}px`};
   font-weight: bold;
+  margin: ${({ margin }) => `${margin}`};
 `;
 
 Button.propTypes = {
@@ -43,6 +48,8 @@ Button.propTypes = {
   color: PropTypes.string,
   fontSize: PropTypes.number,
   clickButton: PropTypes.func,
+  borderRadius: PropTypes.number,
+  margin: PropTypes.string,
 };
 
 export default Button;
