@@ -7,6 +7,7 @@ import TextSelectCareType from '../components/TextSelectCareType';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+
 const Select = () => {
   let navigate = useNavigate();
   const [clicked, setClicked] = useState({ allTime: false, partTime: false });
@@ -14,7 +15,7 @@ const Select = () => {
     navigate('/');
   };
   const goAfter = () => {
-    navigate('/care/schedule');
+    navigate('/care/schedule', { state: clicked });
   };
 
   const clickAllTime = () => {
@@ -23,7 +24,6 @@ const Select = () => {
   const clickPartTime = () => {
     setClicked({ allTime: false, partTime: !clicked.partTime });
   };
-  console.log(clicked);
   return (
     <SelectSideContainer>
       <SelectContainer>
