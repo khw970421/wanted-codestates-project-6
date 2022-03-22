@@ -11,6 +11,7 @@ const Text = ({
   verticalMargin = '0px 0px',
   horizontalMargin = '0px 0px',
   textCenter = 'center',
+  clicked = false,
 }) => {
   return (
     <CustomText
@@ -22,6 +23,7 @@ const Text = ({
       verticalMargin={verticalMargin}
       horizontalMargin={horizontalMargin}
       textCenter={textCenter}
+      clicked={clicked}
     >
       {text}
     </CustomText>
@@ -30,7 +32,7 @@ const Text = ({
 
 const CustomText = styled.div`
   font-size: ${({ fontSize }) => `${fontSize}px`};
-  color: ${({ color }) => color};
+  color: ${({ clicked, color }) => (clicked ? '#ffffff' : color)};
   font-weight: ${({ bold }) => bold};
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
@@ -48,5 +50,6 @@ Text.propTypes = {
   verticalMargin: PropTypes.string,
   horizontalMargin: PropTypes.string,
   textCenter: PropTypes.string,
+  clicked: PropTypes.bool,
 };
 export default Text;
