@@ -5,7 +5,16 @@ import Text from '../components/Text';
 import CareType from '../components/CareType';
 import TextSelectCareType from '../components/TextSelectCareType';
 import Button from '../components/Button';
+import { useNavigate } from 'react-router-dom';
 const Select = () => {
+  let navigate = useNavigate();
+
+  const goBefore = () => {
+    navigate('/');
+  };
+  const goAfter = () => {
+    navigate('/care/schedule');
+  };
   return (
     <SelectSideContainer>
       <SelectContainer>
@@ -50,6 +59,7 @@ const Select = () => {
             width={58}
             height={48}
             margin={'8px 8px 8px 2px'}
+            clickButton={goBefore}
           />
           <Button
             text={'다음'}
@@ -58,6 +68,7 @@ const Select = () => {
             backgroundColor={'#FF8450'}
             color={'white'}
             margin={'8px 2px 8px 8px'}
+            clickButton={goAfter}
           />
         </NavigateButtonGroupContainer>
       </SelectContainer>
