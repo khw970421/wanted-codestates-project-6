@@ -61,7 +61,6 @@ const Address = () => {
   const start = async (target, page) => {
     const res = await getRepository(target, page);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
-    console.log(filterObj);
     setSearchAddressArr(filterObj);
   };
 
@@ -96,10 +95,8 @@ const Address = () => {
     setDetailInputValue(target.value);
   };
 
-  const checkButtonAble = () => {
-    console.log(detailInputValue, Object.keys(addressData));
-    return detailInputValue !== '' && Object.keys(addressData).length !== 0;
-  };
+  const checkButtonAble = () =>
+    detailInputValue !== '' && Object.keys(addressData).length !== 0;
 
   return (
     <ModalContainer>

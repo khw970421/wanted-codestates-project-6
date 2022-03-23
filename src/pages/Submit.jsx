@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const Submit = () => {
-  console.log('submit page push');
   let navigate = useNavigate();
   const goMain = () => {
     navigate('/');
