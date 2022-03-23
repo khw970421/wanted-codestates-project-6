@@ -45,12 +45,13 @@ const Address = () => {
   selectTime: "partTime"
   */
 
-  const ModalEvent = () => {
+  const ModalEvent = e => {
     setIsModalOpen(!isModalOpen);
   };
 
   const checkModalOut = ({ target }) => {
-    if (target.className.includes('modalOpenContainer')) ModalEvent();
+    if (target?.className && target?.className.includes('modalOpenContainer'))
+      ModalEvent();
   };
 
   const checkEnter = ({ code }) => {
@@ -74,7 +75,7 @@ const Address = () => {
   };
 
   const clickIdx = e => {
-    refContainer.current = e.target.id;
+    refContainer.current = Number(e.target.id);
     start(inputValue, refContainer.current);
   };
 
@@ -114,7 +115,7 @@ const Address = () => {
 
   const checkButtonAble = () =>
     detailInputValue !== '' && Object.keys(addressData).length !== 0;
-
+  console.log(refContainer.current);
   return (
     <ModalContainer>
       {isModalOpen ? (
@@ -122,7 +123,7 @@ const Address = () => {
           onClick={checkModalOut}
           className="modalOpenContainer"
         >
-          <ModalDiv>
+          <ModalDiv onClick={e => e.stopPropagation()}>
             <ModalOutDiv onClick={ModalEvent}>x</ModalOutDiv>
             <DetailInput
               placeholder={'🔍 주소 또는 건물명으로 검색'}
@@ -145,7 +146,13 @@ const Address = () => {
               <SearchCountContainer>
                 <FaArrowLeft onClick={findLeft} />
                 {searchCount.map((val, idx) => (
-                  <SearchCount key={idx} id={val} onClick={clickIdx}>
+                  <SearchCount
+                    key={idx}
+                    id={val}
+                    onClick={clickIdx}
+                    isBold={refContainer.current === val}
+                    reff={refContainer.current}
+                  >
                     {val}
                   </SearchCount>
                 ))}
@@ -215,6 +222,11 @@ const SearchCountContainer = styled.div`
 
 const SearchCount = styled.div`
   margin: 0px 8px;
+  font-weight: ${({ isBold, reff, id }) => {
+    console.log(isBold, reff, id, reff === id);
+    return isBold ? 'bold' : 'normal';
+  }};
+  font-size: ${({ isBold }) => (isBold ? '18px' : '14px')};
 `;
 
 const DetailInputContainer = styled.div`
