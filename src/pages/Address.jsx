@@ -256,7 +256,7 @@ const DetailInputContainer = styled.div`
 `;
 
 const DetailInput = styled.input`
-  width: 328px;
+  width: 320px;
   height: 48px;
   padding: 14px;
   box-sizing: border-box;
