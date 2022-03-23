@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 const Text = ({
   text = '신청하기',
-  fontSize,
+  fontSize = 14,
   bold = 'normal',
-  color = '#000000',
+  color = '#5B5555',
   width,
   height,
   verticalMargin = '0px 0px',

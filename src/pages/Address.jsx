@@ -5,25 +5,47 @@ import Button from '../components/Button';
 import CareType from '../components/CareType';
 import TextSelectCareType from '../components/TextSelectCareType';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getRepository } from '../utils/axios';
 import RoadJibunAddress from '../components/RoadJibunAddress';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 /*eslint-disable*/
 
 const Address = () => {
+  const location = useLocation();
+  const locationState = location.state;
+  console.log(location, locationState);
   let navigate = useNavigate();
   const refContainer = useRef(1);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [searchAddressArr, setSearchAddressArr] = useState([]);
+  const [detailInputValue, setDetailInputValue] = useState([]);
+  const [addressData, setAddressData] = useState({});
+  const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
+
   const goBefore = () => {
     navigate('/care/select');
   };
   const goAfter = () => {
-    navigate('/care/address');
+    console.log(searchInputValue, detailInputValue);
+    navigate('/care/result', {
+      state: {
+        address: { ...addressData, detailAddr: detailInputValue },
+        ...locationState,
+      },
+    });
   };
+  /*
+  address: {roadAddr: '서울특별시 강남구 강남대로 358(역삼동)', 
+            jibunAddr: '서울특별시 강남구 역삼동 826-14 강남358타워', 
+            zipNo: '06241', 
+            detailAddr: '1111'}
+  selectTime: "partTime"
+  */
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [searchAddressArr, setSearchAddressArr] = useState([]);
-  const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
   const ModalEvent = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -56,6 +78,7 @@ const Address = () => {
 
   const findLeft = () => {
     if (searchCount[0] !== 1) {
+      start(inputValue, searchCount[0] - 5);
       setSearchCount(searchCount.map(val => val - 5));
     }
   };
@@ -63,6 +86,16 @@ const Address = () => {
     const res = searchCount.map(val => val + 5);
     start(inputValue, searchCount[4] + 1);
     setSearchCount(res);
+  };
+
+  const clickAddress = addrObj => {
+    setSearchInputValue(addrObj.roadAddr);
+    setAddressData(addrObj);
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const changeDetailInputValue = ({ target }) => {
+    setDetailInputValue(target.value);
   };
 
   return (
@@ -80,12 +113,15 @@ const Address = () => {
               onChange={changeValue}
               value={inputValue}
             />
-            {searchAddressArr.map(val => (
+            {searchAddressArr.map(({ roadAddr, jibunAddr, zipNo, bdMgtSn }) => (
               <RoadJibunAddress
-                key={val.bdMgtSn}
-                roadAddr={val.roadAddr}
-                jibunAddr={val.jibunAddr}
-                zipNo={val.zipNo}
+                key={bdMgtSn}
+                roadAddr={roadAddr}
+                jibunAddr={jibunAddr}
+                zipNo={zipNo}
+                click={() => {
+                  clickAddress({ roadAddr, jibunAddr, zipNo });
+                }}
               />
             ))}
             {searchAddressArr.length !== 0 && (
@@ -111,8 +147,13 @@ const Address = () => {
               <DetailInput
                 placeholder={'🔍 주소 또는 건물명으로 검색'}
                 onClick={ModalEvent}
+                defaultValue={searchInputValue}
               />
-              <DetailInput placeholder={'상세 주소를 입력해주세요'} />
+              <DetailInput
+                placeholder={'상세 주소를 입력해주세요'}
+                onChange={changeDetailInputValue}
+                value={detailInputValue}
+              />
             </DetailInputContainer>
             <NavigateButtonGroupContainer>
               <Button

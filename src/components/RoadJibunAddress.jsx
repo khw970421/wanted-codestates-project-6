@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 const RoadJibunAddress = ({
   roadAddr = '서울특별시 강남구 테헤란로 114(역삼동)',
   jibunAddr = '서울특별시 강남구 역삼동 824',
-  zipNo = '06233',
+  zipNo = '',
+  click,
 }) => {
   return (
-    <RoadJibunAddressContainer>
+    <RoadJibunAddressContainer onClick={click}>
       <AddressContainer>
         <RoadAddress>{roadAddr}</RoadAddress>
         <JibunAddress>
@@ -16,7 +17,7 @@ const RoadJibunAddress = ({
           <Jibun>{jibunAddr}</Jibun>
         </JibunAddress>
       </AddressContainer>
-      <ZipContainer>{zipNo}</ZipContainer>
+      {zipNo && <ZipContainer>{zipNo}</ZipContainer>}
     </RoadJibunAddressContainer>
   );
 };
@@ -64,6 +65,7 @@ RoadJibunAddress.propTypes = {
   roadAddr: PropTypes.string,
   jibunAddr: PropTypes.string,
   zipNo: PropTypes.string,
+  click: PropTypes.func,
 };
 
 export default RoadJibunAddress;
