@@ -54,7 +54,8 @@ const Address = () => {
 
   const checkEnter = ({ code }) => {
     if (code === 'Enter') {
-      start(inputValue, refContainer.current);
+      start(inputValue, 1);
+      refContainer.current = 1;
     }
   };
 
