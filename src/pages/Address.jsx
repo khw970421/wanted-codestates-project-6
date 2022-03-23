@@ -24,6 +24,7 @@ const Address = () => {
   const [searchAddressArr, setSearchAddressArr] = useState([]);
   const [detailInputValue, setDetailInputValue] = useState('');
   const [searchTotalCount, setSearchTotalCount] = useState(0);
+  const [apiMesseage, setApiMessage] = useState('');
   const [addressData, setAddressData] = useState({});
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
@@ -68,7 +69,19 @@ const Address = () => {
     setSearchTotalCount(
       JSON.parse(res.slice(1, res.length - 1))?.results?.common?.totalCount,
     );
-    setSearchAddressArr(filterObj || []);
+    setApiMessage(
+      JSON.parse(res.slice(1, res.length - 1))?.results?.common?.errorMessage,
+    );
+    if (
+      JSON.parse(res.slice(1, res.length - 1))?.results?.common
+        ?.errorMessage !== '정상'
+    ) {
+      alert(
+        JSON.parse(res.slice(1, res.length - 1))?.results?.common?.errorMessage,
+      );
+    } else {
+      setSearchAddressArr(filterObj || []);
+    }
   };
 
   const changeValue = ({ target }) => {
@@ -161,13 +174,15 @@ const Address = () => {
                     id={val}
                     onClick={clickIdx}
                     isBold={refContainer.current === val}
-                    reff={refContainer.current}
                   >
                     {val}
                   </SearchCount>
                 ))}
                 <FaArrowRight onClick={findRight} />
               </SearchCountContainer>
+            )}
+            {apiMesseage !== '' && searchAddressArr.length === 0 && (
+              <div> 검색 결과가 없습니다.</div>
             )}
           </ModalDiv>
         </ModalOpenContainer>
@@ -232,10 +247,7 @@ const SearchCountContainer = styled.div`
 
 const SearchCount = styled.div`
   margin: 0px 8px;
-  font-weight: ${({ isBold, reff, id }) => {
-    console.log(isBold, reff, id, reff === id);
-    return isBold ? 'bold' : 'normal';
-  }};
+  font-weight: ${({ isBold }) => (isBold ? 'bold' : 'normal')};
   font-size: ${({ isBold }) => (isBold ? '18px' : '14px')};
 `;
 
