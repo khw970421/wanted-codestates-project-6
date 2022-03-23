@@ -18,7 +18,7 @@ const Schedule = () => {
     navigate('/care/select');
   };
   const goAfter = () => {
-    navigate('/care/address');
+    navigate('/care/address', { state: { selectTime } });
   };
 
   return (
