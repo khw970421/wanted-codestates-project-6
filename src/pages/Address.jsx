@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import CareType from '../components/CareType';
+import Text from '../components/Text';
 import TextSelectCareType from '../components/TextSelectCareType';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -27,7 +28,7 @@ const Address = () => {
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
   const goBefore = () => {
-    navigate('/care/select');
+    navigate('/care/schedule');
   };
   const goAfter = () => {
     navigate('/care/result', {
@@ -67,7 +68,7 @@ const Address = () => {
     setSearchTotalCount(
       JSON.parse(res.slice(1, res.length - 1))?.results?.common?.totalCount,
     );
-    setSearchAddressArr(filterObj);
+    setSearchAddressArr(filterObj || []);
   };
 
   const changeValue = ({ target }) => {
@@ -85,14 +86,15 @@ const Address = () => {
       while (searchCount.length !== 5) {
         searchCount.push(searchCount[searchCount.length - 1] + 1);
       }
-      console.log(searchCount);
+      refContainer.current = searchCount[0] - 5;
       setSearchCount(searchCount.map(val => val - 5));
     } else {
-      ('첫번째 페이지입니다.');
+      alert('첫번째 페이지입니다.');
     }
   };
   const findRight = () => {
     if (searchCount.length === 5) {
+      refContainer.current = searchCount[0] + 5;
       const res = searchCount
         .map(val => val + 5)
         .filter(val => val <= Math.ceil(searchTotalCount / 5));
@@ -115,7 +117,6 @@ const Address = () => {
 
   const checkButtonAble = () =>
     detailInputValue !== '' && Object.keys(addressData).length !== 0;
-  console.log(refContainer.current);
   return (
     <ModalContainer>
       {isModalOpen ? (
@@ -124,7 +125,16 @@ const Address = () => {
           className="modalOpenContainer"
         >
           <ModalDiv onClick={e => e.stopPropagation()}>
-            <ModalOutDiv onClick={ModalEvent}>x</ModalOutDiv>
+            <ModalTitle>
+              <div></div>
+              <Text
+                text={'주소 검색'}
+                fontSize={16}
+                bold={'bold'}
+                color={'#5B5555'}
+              />
+              <ModalOutDiv onClick={ModalEvent}>x</ModalOutDiv>
+            </ModalTitle>
             <DetailInput
               placeholder={'🔍 주소 또는 건물명으로 검색'}
               onKeyPress={checkEnter}
@@ -205,7 +215,7 @@ const Address = () => {
   );
 };
 const AddressSideContainer = styled.div`
-  background-color: #f6f4fc;
+  background-color: ${props => props.theme.lightGray};
 `;
 const AddressContainer = styled.div`
   margin: 0 auto;
@@ -289,6 +299,11 @@ const ModalDiv = styled.div`
   padding: 1%;
 `;
 
+const ModalTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const ContentDiv = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -298,12 +313,8 @@ const ContentDiv = styled.div`
 `;
 
 const ModalOutDiv = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 10px;
-  left: 50%;
-  color: black;
   cursor: pointer;
+  margin: 0px 10px;
 `;
 
 export default Address;
