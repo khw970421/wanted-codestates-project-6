@@ -11,6 +11,7 @@ const Button = ({
   clickButton,
   borderRadius = 3,
   margin = '0px 0px 0px 0px',
+  clickAble = true,
 }) => {
   return (
     <CustomButton
@@ -22,6 +23,7 @@ const Button = ({
       onClick={clickButton}
       borderRadius={borderRadius}
       margin={margin}
+      disabled={!clickAble}
     >
       {text}
     </CustomButton>
@@ -50,6 +52,7 @@ Button.propTypes = {
   clickButton: PropTypes.func,
   borderRadius: PropTypes.number,
   margin: PropTypes.string,
+  clickAble: PropTypes.bool,
 };
 
 export default Button;

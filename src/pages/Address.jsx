@@ -14,7 +14,6 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 const Address = () => {
   const location = useLocation();
   const locationState = location.state;
-  console.log(location, locationState);
   let navigate = useNavigate();
   const refContainer = useRef(1);
 
@@ -22,7 +21,7 @@ const Address = () => {
   const [inputValue, setInputValue] = useState('');
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchAddressArr, setSearchAddressArr] = useState([]);
-  const [detailInputValue, setDetailInputValue] = useState([]);
+  const [detailInputValue, setDetailInputValue] = useState('');
   const [addressData, setAddressData] = useState({});
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
@@ -30,7 +29,6 @@ const Address = () => {
     navigate('/care/select');
   };
   const goAfter = () => {
-    console.log(searchInputValue, detailInputValue);
     navigate('/care/result', {
       state: {
         address: { ...addressData, detailAddr: detailInputValue },
@@ -96,6 +94,11 @@ const Address = () => {
 
   const changeDetailInputValue = ({ target }) => {
     setDetailInputValue(target.value);
+  };
+
+  const checkButtonAble = () => {
+    console.log(detailInputValue, Object.keys(addressData));
+    return detailInputValue !== '' && Object.keys(addressData).length !== 0;
   };
 
   return (
@@ -167,10 +170,11 @@ const Address = () => {
                 text={'다음'}
                 width={268}
                 height={48}
-                backgroundColor={'#FF8450'}
+                backgroundColor={checkButtonAble() ? '#FF8450' : '#e2e2e2'}
                 color={'white'}
                 margin={'8px 2px 8px 8px'}
                 clickButton={goAfter}
+                clickAble={checkButtonAble()}
               />
             </NavigateButtonGroupContainer>
           </AddressContainer>
