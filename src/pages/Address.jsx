@@ -22,6 +22,7 @@ const Address = () => {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchAddressArr, setSearchAddressArr] = useState([]);
   const [detailInputValue, setDetailInputValue] = useState('');
+  const [searchTotalCount, setSearchTotalCount] = useState(0);
   const [addressData, setAddressData] = useState({});
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
@@ -62,6 +63,9 @@ const Address = () => {
   const start = async (target, page) => {
     const res = await getRepository(target, page);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
+    setSearchTotalCount(
+      JSON.parse(res.slice(1, res.length - 1))?.results?.common?.totalCount,
+    );
     setSearchAddressArr(filterObj);
   };
 
@@ -77,13 +81,25 @@ const Address = () => {
   const findLeft = () => {
     if (searchCount[0] !== 1) {
       start(inputValue, searchCount[0] - 5);
+      while (searchCount.length !== 5) {
+        searchCount.push(searchCount[searchCount.length - 1] + 1);
+      }
+      console.log(searchCount);
       setSearchCount(searchCount.map(val => val - 5));
+    } else {
+      ('첫번째 페이지입니다.');
     }
   };
   const findRight = () => {
-    const res = searchCount.map(val => val + 5);
-    start(inputValue, searchCount[4] + 1);
-    setSearchCount(res);
+    if (searchCount.length === 5) {
+      const res = searchCount
+        .map(val => val + 5)
+        .filter(val => val <= Math.ceil(searchTotalCount / 5));
+      start(inputValue, searchCount[4] + 1);
+      setSearchCount(res);
+    } else {
+      alert('마지막 페이지입니다.');
+    }
   };
 
   const clickAddress = addrObj => {
