@@ -76,10 +76,13 @@ const Select = () => {
             text={'다음'}
             width={268}
             height={48}
-            backgroundColor={'#FF8450'}
+            backgroundColor={
+              clicked.allTime || clicked.partTime ? '#FF8450' : '#E2E2E2'
+            }
             color={'white'}
             margin={'8px 2px 8px 8px'}
             clickButton={goAfter}
+            clickAble={clicked.allTime || clicked.partTime}
           />
         </NavigateButtonGroupContainer>
       </SelectContainer>

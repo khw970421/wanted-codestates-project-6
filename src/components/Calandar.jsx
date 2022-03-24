@@ -5,7 +5,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Box from '@mui/material/Box';
 
-export default function Demo() {
+export default function Calandar() {
   const [value, setValue] = React.useState([null, null]);
 
   return (

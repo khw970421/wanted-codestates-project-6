@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const Submit = () => {
-  console.log('submit page push');
   let navigate = useNavigate();
   const goMain = () => {
     navigate('/');
@@ -13,14 +12,30 @@ const Submit = () => {
   return (
     <SubmitSideContainer>
       <SubmitContainer>
-        <Text text={'돌보미 신청하기'} fontSize={16} />
-        <Text text={'📱 신청이 완료되었습니다!'} fontSize={24} />
-        <Text
-          text={
-            '신청하신 내용을 보고 케어코디님들이 지원할 예정입니다.케어코디님들이 신청할 때 마다 앱이나 문자로 알림을 보내드립니다.'
-          }
-        />
-        <Text text={'케어코디님의 지원 알림을 기다려주세요!'} />
+        <Title>
+          <Text
+            text={'돌보미 신청하기'}
+            fontSize={16}
+            bold={'bold'}
+            color={'#5B5555'}
+          />
+        </Title>
+        <SubTitle>
+          <Text
+            text={'📱 신청이 완료되었습니다!'}
+            fontSize={24}
+            bold={'bold'}
+            color={'#5B5555'}
+          />
+        </SubTitle>
+        <TextContainer>
+          <Text
+            text={
+              '신청하신 내용을 보고 케어코디님들이 지원할 예정입니다.케어코디님들이 신청할 때 마다 앱이나 문자로 알림을 보내드립니다.'
+            }
+          />
+          <Text text={'케어코디님의 지원 알림을 기다려주세요!'} />
+        </TextContainer>
         <ButtonContainer>
           <Button
             width={60}
@@ -28,6 +43,7 @@ const Submit = () => {
             padding={16}
             text={'끝내기'}
             clickButton={goMain}
+            color={'#7D7878'}
           />
         </ButtonContainer>
       </SubmitContainer>
@@ -44,6 +60,16 @@ const SubmitContainer = styled.div`
   height: 812px;
   background-color: ${props => props.theme.white};
   position: relative;
+`;
+
+const Title = styled.div`
+  padding: 15px;
+`;
+const SubTitle = styled.div`
+  padding: 24px 16px;
+`;
+const TextContainer = styled.div`
+  padding: 8px 16px;
 `;
 const ButtonContainer = styled.div`
   display: flex;

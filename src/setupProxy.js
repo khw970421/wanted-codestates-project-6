@@ -9,5 +9,12 @@ module.exports = function (app) {
         '^/api': '',
       },
     }),
+    createProxyMiddleware('/caredoc', {
+      target: 'https://caredoc-fe-server.herokuapp.com',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/caredoc': '',
+      },
+    }),
   );
 };
