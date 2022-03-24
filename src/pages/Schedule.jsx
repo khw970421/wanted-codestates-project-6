@@ -3,13 +3,16 @@ import styled from '@emotion/styled';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import CareType from '../components/CareType';
-import Calandar from '../components/Calandar';
 import TextSelectCareType from '../components/TextSelectCareType';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getStaticData } from '../utils/axios';
+import DatePicker from 'react-datepicker';
 import Text from '../components/Text';
 
+import 'react-datepicker/dist/react-datepicker.css';
+
+/* eslint-disable */
 const careStartData = [
   '오전 8시',
   '오전 9시',
@@ -33,11 +36,28 @@ const Schedule = () => {
     ?.filter(([, value]) => value)
     ?.flat()[0];
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const [careStartTime, setCareStartTime] = useState('');
+  const [dayCareTime, setDayCareTime] = useState('24시간');
+  const onChange = dates => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  console.log(startDate, endDate);
+
   const goBefore = () => {
     navigate('/care/select');
   };
   const goAfter = () => {
-    navigate('/care/address', { state: { selectTime } });
+    navigate('/care/address', {
+      state: {
+        selectTime,
+        schedule: { startDate, endDate, careStartTime, dayCareTime },
+      },
+    });
   };
 
   const start = async () => {
@@ -52,26 +72,35 @@ const Schedule = () => {
     start();
   }, []);
 
-  console.log(selectDayCare);
-  console.log(minBeforeFirstScheduleVisitHour);
-
+  const selectCareStartEvent = ({ target }) => {
+    setCareStartTime(target.value);
+  };
+  const selectDayCareEvent = ({ target }) => {
+    setDayCareTime(target.value);
+  };
   return (
     <ScheduleSideContainer>
       <ScheduleContainer>
         <Header clickBefore={goBefore} />
         <CareType processNumber={2} />
         <TextSelectCareType text={'돌봄 스케줄을 설정해주세요'} />
-        {selectTime === 'allTime' ? <div>alltime</div> : <div>partTime</div>}
-        <Calandar />
+        <DatePicker
+          selected={startDate}
+          onChange={onChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
+          inline
+        />
         <Text
           text={'돌봄 시간 선택'}
           bold={'bold'}
           color={'#5B5555'}
           textCenter={'normal'}
         />
-        <select>
+        <select onChange={selectCareStartEvent}>
           {careStartData.map(val => (
-            <option value="" key={val}>
+            <option value={val} key={val}>
               {val}
             </option>
           ))}
@@ -87,11 +116,10 @@ const Schedule = () => {
             <option value="">24시간 상주</option>
           </select>
         ) : (
-          <select>
+          <select onChange={selectDayCareEvent}>
             {selectDayCare.map(({ text, value }) => {
-              console.log(text, value);
               return (
-                <option value="" key={value}>
+                <option value={text} key={value}>
                   {text}
                 </option>
               );

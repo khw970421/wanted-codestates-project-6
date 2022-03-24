@@ -16,10 +16,10 @@ const Result = () => {
     navigate('/care/address');
   };
   const goAfter = () => {
-    navigate('/care/submit');
+    navigate('/care/submit', { state: locationState });
   };
   const locationState = location.state;
-
+  console.log(locationState);
   return (
     <ResultSideContainer>
       <ResultContainer>

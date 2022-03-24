@@ -17,7 +17,6 @@ const Address = () => {
   const locationState = location.state;
   let navigate = useNavigate();
   const refContainer = useRef(1);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [searchInputValue, setSearchInputValue] = useState('');

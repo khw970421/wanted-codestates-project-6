@@ -1,14 +1,16 @@
 import React from 'react';
 import Text from '../components/Text';
 import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const Submit = () => {
   let navigate = useNavigate();
+  const location = useLocation();
   const goMain = () => {
     navigate('/');
   };
+  console.log(location.state);
   return (
     <SubmitSideContainer>
       <SubmitContainer>
