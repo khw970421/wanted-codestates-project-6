@@ -52,13 +52,13 @@ const Submit = () => {
 };
 
 const SubmitSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
+  background-color: '#F6F4FC';
 `;
 const SubmitContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color: ${props => props.theme.white};
+  background-color: white;
   position: relative;
 `;
 

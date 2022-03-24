@@ -35,7 +35,7 @@ const Main = () => {
 };
 
 const MainSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
+  background-color: '#F6F4FC';
 `;
 
 const MainContainer = styled.div`
@@ -46,7 +46,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.white};
+  background-color: 'white';
 `;
 
 export default Main;

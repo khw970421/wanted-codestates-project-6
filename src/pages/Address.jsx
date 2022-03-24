@@ -230,7 +230,7 @@ const Address = () => {
   );
 };
 const AddressSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
+  background-color: #f6f4fc;
 `;
 const AddressContainer = styled.div`
   margin: 0 auto;
