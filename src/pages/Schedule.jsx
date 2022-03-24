@@ -108,39 +108,43 @@ const Schedule = () => {
         <Header clickBefore={goBefore} />
         <CareType processNumber={2} />
         <TextSelectCareType text={'돌봄 스케줄을 설정해주세요'} />
-        <DatePicker
-          selected={startDate}
-          onChange={onChange}
-          startDate={startDate}
-          endDate={endDate}
-          selectsRange
-          inline
-        />
+        <DateContainer>
+          <DatePicker
+            selected={startDate}
+            onChange={onChange}
+            startDate={startDate}
+            endDate={endDate}
+            selectsRange
+            inline
+          />
+        </DateContainer>
         <Text
           text={'돌봄 시간 선택'}
           bold={'bold'}
           color={'#5B5555'}
           textCenter={'normal'}
+          padding={'5px 16px'}
         />
-        <select onChange={selectCareStartEvent}>
+        <CustomSelect onChange={selectCareStartEvent}>
           {careStartData.map(val => (
             <option value={val} key={val}>
               {val}
             </option>
           ))}
-        </select>
+        </CustomSelect>
         <Text
           text={'하루 돌봄 선택'}
           bold={'bold'}
           color={'#5B5555'}
           textCenter={'normal'}
+          padding={'5px 16px'}
         />
         {selectTime === 'allTime' ? (
-          <select disabled>
+          <CustomSelect disabled>
             <option value="">24시간 상주</option>
-          </select>
+          </CustomSelect>
         ) : (
-          <select onChange={selectDayCareEvent}>
+          <CustomSelect onChange={selectDayCareEvent}>
             {selectDayCare.map(({ text, value }) => {
               return (
                 <option value={value} key={value}>
@@ -148,7 +152,7 @@ const Schedule = () => {
                 </option>
               );
             })}
-          </select>
+          </CustomSelect>
         )}
         <NavigateButtonGroupContainer>
           <Button
@@ -183,6 +187,17 @@ const ScheduleContainer = styled.div`
   background-color: white;
   position: relative;
 `;
+
+const CustomSelect = styled.select`
+  margin: 16px;
+  padding: 5px;
+  border-radius: 3px;
+`;
+
+const DateContainer = styled.div`
+  margin: 10px 16px;
+`;
+
 const NavigateButtonGroupContainer = styled.div`
   display: flex;
   justify-content: space-between;

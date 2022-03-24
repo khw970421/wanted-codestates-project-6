@@ -54,7 +54,7 @@ const Address = () => {
           roadAddress: addressData.roadAddrPart1,
           jibunAddress: addressData.jibunAddr,
           sidoName: addressData.siNm,
-          sigunguName: addressData.roadAddrPart2,
+          sigunguName: addressData.sggNm,
           liName: addressData.liNm,
           addressDetail: detailInputValue,
           myundongName: addressData.buldMnnm,
@@ -63,13 +63,6 @@ const Address = () => {
       },
     });
   };
-  /*
-  address: {roadAddr: '서울특별시 강남구 강남대로 358(역삼동)', 
-            jibunAddr: '서울특별시 강남구 역삼동 826-14 강남358타워', 
-            zipNo: '06241', 
-            detailAddr: '1111'}
-  selectTime: "partTime"
-  */
 
   const ModalEvent = e => {
     setIsModalOpen(!isModalOpen);

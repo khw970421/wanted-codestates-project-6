@@ -12,7 +12,6 @@ const Submit = () => {
     navigate('/');
   };
   useEffect(async () => {
-    console.log(location.state);
     const res = await postRegisterData(location.state);
     alert(res.message);
   }, []);

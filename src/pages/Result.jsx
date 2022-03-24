@@ -26,7 +26,6 @@ const Result = () => {
     });
   };
   const locationState = location.state;
-  console.log(locationState);
   return (
     <ResultSideContainer>
       <ResultContainer>
