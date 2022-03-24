@@ -16,7 +16,9 @@ const Result = () => {
   const changePhoneNumber = ({ target }) => setPhone(target.value);
   let navigate = useNavigate();
   const goBefore = () => {
-    navigate('/care/address');
+    navigate('/care/address', {
+      state: { ...locationState, phoneNumber: phone },
+    });
   };
   const goAfter = () => {
     navigate('/care/submit', {
@@ -79,10 +81,11 @@ const Result = () => {
             text={'다음'}
             width={268}
             height={48}
-            backgroundColor={'#FF8450'}
+            backgroundColor={phone ? '#FF8450' : '#E2E2E2'}
             color={'white'}
             margin={'8px 2px 8px 8px'}
             clickButton={goAfter}
+            clickAble={phone}
           />
         </NavigateButtonGroupContainer>
       </ResultContainer>

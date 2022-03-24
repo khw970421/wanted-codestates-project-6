@@ -38,7 +38,7 @@ const Schedule = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
-  const [careStartTime, setCareStartTime] = useState('');
+  const [careStartTime, setCareStartTime] = useState('오전 8시');
   const [dayCareTime, setDayCareTime] = useState(24);
   const onChange = dates => {
     const [start, end] = dates;
@@ -46,10 +46,29 @@ const Schedule = () => {
     setEndDate(end);
   };
 
+  const checkButtonAvailable = () => {
+    return (
+      Boolean(startDate) &&
+      Boolean(endDate) &&
+      Boolean(careStartTime) &&
+      Boolean(dayCareTime)
+    );
+  };
+
   console.log(startDate, endDate);
 
   const goBefore = () => {
-    navigate('/care/select');
+    navigate('/care/select', {
+      state: {
+        workType: selectTime,
+        schedule: {
+          startDate,
+          endDate,
+          visitTime: careStartTime,
+          hour: dayCareTime,
+        },
+      },
+    });
   };
   const goAfter = () => {
     navigate('/care/address', {
@@ -143,10 +162,11 @@ const Schedule = () => {
             text={'다음'}
             width={268}
             height={48}
-            backgroundColor={'#FF8450'}
+            backgroundColor={checkButtonAvailable() ? '#FF8450' : '#E2E2E2'}
             color={'white'}
             margin={'8px 2px 8px 8px'}
             clickButton={goAfter}
+            clickAble={checkButtonAvailable()}
           />
         </NavigateButtonGroupContainer>
       </ScheduleContainer>

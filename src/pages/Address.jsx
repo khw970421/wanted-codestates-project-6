@@ -28,7 +28,22 @@ const Address = () => {
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
   const goBefore = () => {
-    navigate('/care/schedule');
+    navigate('/care/schedule', {
+      state: {
+        address: {
+          locationCode: addressData.zipNo,
+          roadCode: addressData.emdNo,
+          roadAddress: addressData.roadAddrPart1,
+          jibunAddress: addressData.jibunAddr,
+          sidoName: addressData.siNm,
+          sigunguName: addressData.roadAddrPart2,
+          liName: addressData.liNm,
+          addressDetail: detailInputValue,
+          myundongName: addressData.buldMnnm,
+        },
+        ...locationState,
+      },
+    });
   };
   const goAfter = () => {
     navigate('/care/result', {
