@@ -41,7 +41,6 @@ const Result = () => {
             <Text
               text={'신청 내역'}
               textCenter={'normal'}
-              bold={'bold'}
               fontSize={16}
             />
           </Title>

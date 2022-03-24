@@ -160,8 +160,7 @@ const Address = () => {
               <Text
                 text={'주소 검색'}
                 fontSize={16}
-                bold={'bold'}
-                color={'#5B5555'}
+           
               />
               <ModalOutDiv onClick={ModalEvent}>x</ModalOutDiv>
             </ModalTitle>

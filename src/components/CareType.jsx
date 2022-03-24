@@ -6,21 +6,15 @@ const CareType = ({ processNumber = 1 }) => {
   return (
     <CareTypeContainer>
       <CareTypeSubContainer>
-        <Text
-          text={'돌봄 유형'}
-          fontSize={16}
-          bold={'bold'}
-          padding={'0px 3px 0px 0px'}
-        />
+        <Text text={'돌봄 유형'} fontSize={16} padding={'0px 3px 0px 0px'} />
         <Text
           text={String(processNumber)}
           fontSize={16}
-          bold={'bold'}
           color={'#FF8450'}
           verticalMargin={'2px'}
         />
-        <Text text={'/'} fontSize={16} bold={'bold'} verticalMargin={'2px'} />
-        <Text text={'4'} fontSize={16} bold={'bold'} verticalMargin={'2px'} />
+        <Text text={'/'} fontSize={16} verticalMargin={'2px'} />
+        <Text text={'4'} fontSize={16} verticalMargin={'2px'} />
       </CareTypeSubContainer>
     </CareTypeContainer>
   );

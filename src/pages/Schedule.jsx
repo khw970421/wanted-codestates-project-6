@@ -120,8 +120,6 @@ const Schedule = () => {
         </DateContainer>
         <Text
           text={'돌봄 시간 선택'}
-          bold={'bold'}
-          color={'#5B5555'}
           textCenter={'normal'}
           padding={'5px 16px'}
         />
@@ -134,8 +132,6 @@ const Schedule = () => {
         </CustomSelect>
         <Text
           text={'하루 돌봄 선택'}
-          bold={'bold'}
-          color={'#5B5555'}
           textCenter={'normal'}
           padding={'5px 16px'}
         />

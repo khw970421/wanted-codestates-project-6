@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Text = ({
   text = '신청하기',
   fontSize = 14,
-  bold = 'normal',
+  bold = 'bold',
   color = '#5B5555',
   width,
   height,

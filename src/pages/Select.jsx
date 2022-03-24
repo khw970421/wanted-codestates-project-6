@@ -34,14 +34,11 @@ const Select = () => {
           <ButtonContainer clicked={clicked.allTime} onClick={clickAllTime}>
             <Text
               text={'🌞'}
-              bold={'bold'}
               fontSize={60}
               horizontalMargin={'10px 0px'}
             />
             <Text
               text={'24시간 상주'}
-              color={'#5B5555'}
-              bold={'bold'}
               fontSize={14}
               horizontalMargin={'8px 0px'}
               clicked={clicked.allTime}
@@ -50,14 +47,11 @@ const Select = () => {
           <ButtonContainer clicked={clicked.partTime} onClick={clickPartTime}>
             <Text
               text={'⏰'}
-              bold={'bold'}
               fontSize={60}
               horizontalMargin={'10px 0px'}
             />
             <Text
               text={'시간제 돌봄'}
-              color={'#5B5555'}
-              bold={'bold'}
               fontSize={14}
               horizontalMargin={'8px 0px'}
               clicked={clicked.partTime}
