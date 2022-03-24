@@ -54,8 +54,13 @@ const Schedule = () => {
   const goAfter = () => {
     navigate('/care/address', {
       state: {
-        selectTime,
-        schedule: { startDate, endDate, careStartTime, dayCareTime },
+        workType: selectTime,
+        schedule: {
+          startDate,
+          endDate,
+          visitTime: careStartTime,
+          hour: dayCareTime,
+        },
       },
     });
   };

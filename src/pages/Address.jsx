@@ -33,7 +33,16 @@ const Address = () => {
   const goAfter = () => {
     navigate('/care/result', {
       state: {
-        address: { ...addressData, detailAddr: detailInputValue },
+        address: {
+          locationCode: addressData.zipNo,
+          roadCode: addressData.emdNo,
+          roadAddress: addressData.roadAddrPart1,
+          jibunAddress: addressData.jibunAddr,
+          sidoName: addressData.siNm,
+          sigunguName: addressData.roadAddrPart2,
+          liName: addressData.liNm,
+          addressDetail: detailInputValue,
+        },
         ...locationState,
       },
     });
@@ -153,14 +162,14 @@ const Address = () => {
               onChange={changeValue}
               value={inputValue}
             />
-            {searchAddressArr.map(({ roadAddr, jibunAddr, zipNo, bdMgtSn }) => (
+            {searchAddressArr.map(road => (
               <RoadJibunAddress
-                key={bdMgtSn}
-                roadAddr={roadAddr}
-                jibunAddr={jibunAddr}
-                zipNo={zipNo}
+                key={road.bdMgtSn}
+                roadAddr={road.roadAddr}
+                jibunAddr={road.jibunAddr}
+                zipNo={road.zipNo}
                 click={() => {
-                  clickAddress({ roadAddr, jibunAddr, zipNo });
+                  clickAddress(road);
                 }}
               />
             ))}

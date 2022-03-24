@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Header from '../components/Header';
 import Button from '../components/Button';
@@ -11,12 +11,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Result = () => {
   const location = useLocation();
+  const [phone, setPhone] = useState('');
+
+  const changePhoneNumber = ({ target }) => setPhone(target.value);
   let navigate = useNavigate();
   const goBefore = () => {
     navigate('/care/address');
   };
   const goAfter = () => {
-    navigate('/care/submit', { state: locationState });
+    navigate('/care/submit', {
+      state: { ...locationState, phoneNumber: phone },
+    });
   };
   const locationState = location.state;
   console.log(locationState);
@@ -58,7 +63,9 @@ const Result = () => {
         </ResultReportContainer>
         <PhoneInput
           type="text"
+          onChange={changePhoneNumber}
           placeholder="전화번호를 입력해주세요 (숫자만 입력해주세요.)"
+          value={phone}
         ></PhoneInput>
         <NavigateButtonGroupContainer>
           <Button
