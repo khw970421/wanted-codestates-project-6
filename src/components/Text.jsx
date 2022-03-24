@@ -11,6 +11,7 @@ const Text = ({
   verticalMargin = '0px 0px',
   horizontalMargin = '0px 0px',
   textCenter = 'center',
+  padding = '0px 0px 0px 0px',
   clicked = false,
 }) => {
   return (
@@ -24,6 +25,7 @@ const Text = ({
       horizontalMargin={horizontalMargin}
       textCenter={textCenter}
       clicked={clicked}
+      padding={padding}
     >
       {text}
     </CustomText>
@@ -39,6 +41,7 @@ const CustomText = styled.div`
   margin: ${({ verticalMargin, horizontalMargin }) =>
     `${horizontalMargin} ${verticalMargin}`};
   text-align: ${({ textCenter }) => `${textCenter}`};
+  padding: ${({ padding }) => `${padding}`};
 `;
 Text.propTypes = {
   text: PropTypes.string,
@@ -51,5 +54,6 @@ Text.propTypes = {
   horizontalMargin: PropTypes.string,
   textCenter: PropTypes.string,
   clicked: PropTypes.bool,
+  padding: PropTypes.string,
 };
 export default Text;
