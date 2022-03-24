@@ -59,7 +59,7 @@ const Submit = () => {
 };
 
 const SubmitSideContainer = styled.div`
-  background-color: '#F6F4FC';
+  background-color: #f6f4fc;
 `;
 const SubmitContainer = styled.div`
   margin: 0 auto;

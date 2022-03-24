@@ -253,9 +253,7 @@ const Address = () => {
     </ModalContainer>
   );
 };
-const AddressSideContainer = styled.div`
-  background-color: #f6f4fc;
-`;
+const AddressSideContainer = styled.div``;
 const AddressContainer = styled.div`
   margin: 0 auto;
   width: 360px;
@@ -298,6 +296,7 @@ const NavigateButtonGroupContainer = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  background-color: #f6f4fc;
   display: flex;
   justify-content: center;
 `;

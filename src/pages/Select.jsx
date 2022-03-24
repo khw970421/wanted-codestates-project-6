@@ -90,13 +90,13 @@ const Select = () => {
   );
 };
 const SelectSideContainer = styled.div`
-  background-color: '#F6F4FC';
+  background-color: #f6f4fc;
 `;
 const SelectContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color:'white'
+  background-color: white;
   position: relative;
 `;
 
@@ -108,10 +108,11 @@ const ButtonGroupContainer = styled.div`
 const ButtonContainer = styled.div`
   width: 160px;
   height: 144px;
-  border: 1px solid '#e2e2e2';
+  border: 1px solid #e2e2e2;
   border-radius: 5px;
   margin: 32px 4px;
   background-color: ${({ clicked }) => (clicked ? '#FF8450' : '#ffffff')};
+  cursor: pointer;
 `;
 
 const NavigateButtonGroupContainer = styled.div`

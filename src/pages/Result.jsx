@@ -94,13 +94,13 @@ const Result = () => {
 };
 
 const ResultSideContainer = styled.div`
-  background-color: '#F6F4FC';
+  background-color: #f6f4fc;
 `;
 const ResultContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color: 'white';
+  background-color: white;
   position: relative;
 `;
 

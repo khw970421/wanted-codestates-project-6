@@ -174,13 +174,13 @@ const Schedule = () => {
   );
 };
 const ScheduleSideContainer = styled.div`
-  background-color: ' #F6F4FC';
+  background-color: #f6f4fc;
 `;
 const ScheduleContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color: 'white'
+  background-color: white;
   position: relative;
 `;
 const NavigateButtonGroupContainer = styled.div`
