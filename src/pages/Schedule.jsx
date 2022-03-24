@@ -39,7 +39,7 @@ const Schedule = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const [careStartTime, setCareStartTime] = useState('');
-  const [dayCareTime, setDayCareTime] = useState('24시간');
+  const [dayCareTime, setDayCareTime] = useState(24);
   const onChange = dates => {
     const [start, end] = dates;
     setStartDate(start);
@@ -81,7 +81,7 @@ const Schedule = () => {
     setCareStartTime(target.value);
   };
   const selectDayCareEvent = ({ target }) => {
-    setDayCareTime(target.value);
+    setDayCareTime(Number(target.value));
   };
   return (
     <ScheduleSideContainer>
@@ -124,7 +124,7 @@ const Schedule = () => {
           <select onChange={selectDayCareEvent}>
             {selectDayCare.map(({ text, value }) => {
               return (
-                <option value={text} key={value}>
+                <option value={value} key={value}>
                   {text}
                 </option>
               );

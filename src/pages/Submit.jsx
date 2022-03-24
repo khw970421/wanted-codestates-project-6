@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { postRegisterData } from '../utils/axios';
 
 const Submit = () => {
   let navigate = useNavigate();
@@ -10,7 +11,11 @@ const Submit = () => {
   const goMain = () => {
     navigate('/');
   };
-  console.log(location.state);
+  useEffect(async () => {
+    console.log(location.state);
+    const res = await postRegisterData(location.state);
+    alert(res.message);
+  }, []);
   return (
     <SubmitSideContainer>
       <SubmitContainer>

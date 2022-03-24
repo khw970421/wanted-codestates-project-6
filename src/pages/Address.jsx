@@ -42,6 +42,7 @@ const Address = () => {
           sigunguName: addressData.roadAddrPart2,
           liName: addressData.liNm,
           addressDetail: detailInputValue,
+          myundongName: addressData.buldMnnm,
         },
         ...locationState,
       },

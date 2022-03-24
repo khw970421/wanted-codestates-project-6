@@ -22,4 +22,14 @@ const getStaticData = async () => {
   }
 };
 
-export { getRepository, getStaticData };
+const postRegisterData = async obj => {
+  try {
+    const response = await axios.post(`/caredoc/application`, obj);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getRepository, getStaticData, postRegisterData };
