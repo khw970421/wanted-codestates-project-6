@@ -40,6 +40,7 @@ const CustomButton = styled.button`
   font-size: ${({ fontSize }) => `${fontSize}px`};
   font-weight: bold;
   margin: ${({ margin }) => `${margin}`};
+  cursor: pointer;
 `;
 
 Button.propTypes = {

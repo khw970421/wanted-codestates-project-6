@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Header from '../components/Header';
 import Button from '../components/Button';
@@ -11,15 +11,22 @@ import { useNavigate } from 'react-router-dom';
 
 const Result = () => {
   const location = useLocation();
+  const [phone, setPhone] = useState('');
+
+  const changePhoneNumber = ({ target }) => setPhone(target.value);
   let navigate = useNavigate();
   const goBefore = () => {
-    navigate('/care/address');
+    navigate('/care/address', {
+      state: { ...locationState, phoneNumber: phone },
+    });
   };
   const goAfter = () => {
-    navigate('/care/submit');
+    navigate('/care/submit', {
+      state: { ...locationState, phoneNumber: phone },
+    });
   };
   const locationState = location.state;
-
+  console.log(locationState);
   return (
     <ResultSideContainer>
       <ResultContainer>
@@ -58,7 +65,9 @@ const Result = () => {
         </ResultReportContainer>
         <PhoneInput
           type="text"
+          onChange={changePhoneNumber}
           placeholder="전화번호를 입력해주세요 (숫자만 입력해주세요.)"
+          value={phone}
         ></PhoneInput>
         <NavigateButtonGroupContainer>
           <Button
@@ -72,10 +81,11 @@ const Result = () => {
             text={'다음'}
             width={268}
             height={48}
-            backgroundColor={'#FF8450'}
+            backgroundColor={phone ? '#FF8450' : '#E2E2E2'}
             color={'white'}
             margin={'8px 2px 8px 8px'}
             clickButton={goAfter}
+            clickAble={phone}
           />
         </NavigateButtonGroupContainer>
       </ResultContainer>
@@ -84,13 +94,13 @@ const Result = () => {
 };
 
 const ResultSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
+  background-color: #f6f4fc;
 `;
 const ResultContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color: ${props => props.theme.white};
+  background-color: white;
   position: relative;
 `;
 

@@ -17,7 +17,6 @@ const Address = () => {
   const locationState = location.state;
   let navigate = useNavigate();
   const refContainer = useRef(1);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [searchInputValue, setSearchInputValue] = useState('');
@@ -29,12 +28,37 @@ const Address = () => {
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
   const goBefore = () => {
-    navigate('/care/schedule');
+    navigate('/care/schedule', {
+      state: {
+        address: {
+          locationCode: addressData.zipNo,
+          roadCode: addressData.emdNo,
+          roadAddress: addressData.roadAddrPart1,
+          jibunAddress: addressData.jibunAddr,
+          sidoName: addressData.siNm,
+          sigunguName: addressData.roadAddrPart2,
+          liName: addressData.liNm,
+          addressDetail: detailInputValue,
+          myundongName: addressData.buldMnnm,
+        },
+        ...locationState,
+      },
+    });
   };
   const goAfter = () => {
     navigate('/care/result', {
       state: {
-        address: { ...addressData, detailAddr: detailInputValue },
+        address: {
+          locationCode: addressData.zipNo,
+          roadCode: addressData.emdNo,
+          roadAddress: addressData.roadAddrPart1,
+          jibunAddress: addressData.jibunAddr,
+          sidoName: addressData.siNm,
+          sigunguName: addressData.roadAddrPart2,
+          liName: addressData.liNm,
+          addressDetail: detailInputValue,
+          myundongName: addressData.buldMnnm,
+        },
         ...locationState,
       },
     });
@@ -154,14 +178,14 @@ const Address = () => {
               onChange={changeValue}
               value={inputValue}
             />
-            {searchAddressArr.map(({ roadAddr, jibunAddr, zipNo, bdMgtSn }) => (
+            {searchAddressArr.map(road => (
               <RoadJibunAddress
-                key={bdMgtSn}
-                roadAddr={roadAddr}
-                jibunAddr={jibunAddr}
-                zipNo={zipNo}
+                key={road.bdMgtSn}
+                roadAddr={road.roadAddr}
+                jibunAddr={road.jibunAddr}
+                zipNo={road.zipNo}
                 click={() => {
-                  clickAddress({ roadAddr, jibunAddr, zipNo });
+                  clickAddress(road);
                 }}
               />
             ))}
@@ -229,9 +253,7 @@ const Address = () => {
     </ModalContainer>
   );
 };
-const AddressSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
-`;
+const AddressSideContainer = styled.div``;
 const AddressContainer = styled.div`
   margin: 0 auto;
   width: 360px;
@@ -274,6 +296,7 @@ const NavigateButtonGroupContainer = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  background-color: #f6f4fc;
   display: flex;
   justify-content: center;
 `;

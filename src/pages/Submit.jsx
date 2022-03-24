@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Text from '../components/Text';
 import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { postRegisterData } from '../utils/axios';
 
 const Submit = () => {
   let navigate = useNavigate();
+  const location = useLocation();
   const goMain = () => {
     navigate('/');
   };
+  useEffect(async () => {
+    console.log(location.state);
+    const res = await postRegisterData(location.state);
+    alert(res.message);
+  }, []);
   return (
     <SubmitSideContainer>
       <SubmitContainer>
@@ -52,13 +59,13 @@ const Submit = () => {
 };
 
 const SubmitSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
+  background-color: #f6f4fc;
 `;
 const SubmitContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color: ${props => props.theme.white};
+  background-color: white;
   position: relative;
 `;
 

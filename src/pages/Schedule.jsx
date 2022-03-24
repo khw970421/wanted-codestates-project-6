@@ -3,13 +3,16 @@ import styled from '@emotion/styled';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import CareType from '../components/CareType';
-import Calandar from '../components/Calandar';
 import TextSelectCareType from '../components/TextSelectCareType';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getStaticData } from '../utils/axios';
+import DatePicker from 'react-datepicker';
 import Text from '../components/Text';
 
+import 'react-datepicker/dist/react-datepicker.css';
+
+/* eslint-disable */
 const careStartData = [
   '오전 8시',
   '오전 9시',
@@ -33,11 +36,52 @@ const Schedule = () => {
     ?.filter(([, value]) => value)
     ?.flat()[0];
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const [careStartTime, setCareStartTime] = useState('오전 8시');
+  const [dayCareTime, setDayCareTime] = useState(24);
+  const onChange = dates => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  const checkButtonAvailable = () => {
+    return (
+      Boolean(startDate) &&
+      Boolean(endDate) &&
+      Boolean(careStartTime) &&
+      Boolean(dayCareTime)
+    );
+  };
+
+  console.log(startDate, endDate);
+
   const goBefore = () => {
-    navigate('/care/select');
+    navigate('/care/select', {
+      state: {
+        workType: selectTime,
+        schedule: {
+          startDate,
+          endDate,
+          visitTime: careStartTime,
+          hour: dayCareTime,
+        },
+      },
+    });
   };
   const goAfter = () => {
-    navigate('/care/address', { state: { selectTime } });
+    navigate('/care/address', {
+      state: {
+        workType: selectTime,
+        schedule: {
+          startDate,
+          endDate,
+          visitTime: careStartTime,
+          hour: dayCareTime,
+        },
+      },
+    });
   };
 
   const start = async () => {
@@ -52,26 +96,35 @@ const Schedule = () => {
     start();
   }, []);
 
-  console.log(selectDayCare);
-  console.log(minBeforeFirstScheduleVisitHour);
-
+  const selectCareStartEvent = ({ target }) => {
+    setCareStartTime(target.value);
+  };
+  const selectDayCareEvent = ({ target }) => {
+    setDayCareTime(Number(target.value));
+  };
   return (
     <ScheduleSideContainer>
       <ScheduleContainer>
         <Header clickBefore={goBefore} />
         <CareType processNumber={2} />
         <TextSelectCareType text={'돌봄 스케줄을 설정해주세요'} />
-        {selectTime === 'allTime' ? <div>alltime</div> : <div>partTime</div>}
-        <Calandar />
+        <DatePicker
+          selected={startDate}
+          onChange={onChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
+          inline
+        />
         <Text
           text={'돌봄 시간 선택'}
           bold={'bold'}
           color={'#5B5555'}
           textCenter={'normal'}
         />
-        <select>
+        <select onChange={selectCareStartEvent}>
           {careStartData.map(val => (
-            <option value="" key={val}>
+            <option value={val} key={val}>
               {val}
             </option>
           ))}
@@ -87,11 +140,10 @@ const Schedule = () => {
             <option value="">24시간 상주</option>
           </select>
         ) : (
-          <select>
+          <select onChange={selectDayCareEvent}>
             {selectDayCare.map(({ text, value }) => {
-              console.log(text, value);
               return (
-                <option value="" key={value}>
+                <option value={value} key={value}>
                   {text}
                 </option>
               );
@@ -110,10 +162,11 @@ const Schedule = () => {
             text={'다음'}
             width={268}
             height={48}
-            backgroundColor={'#FF8450'}
+            backgroundColor={checkButtonAvailable() ? '#FF8450' : '#E2E2E2'}
             color={'white'}
             margin={'8px 2px 8px 8px'}
             clickButton={goAfter}
+            clickAble={checkButtonAvailable()}
           />
         </NavigateButtonGroupContainer>
       </ScheduleContainer>
@@ -121,13 +174,13 @@ const Schedule = () => {
   );
 };
 const ScheduleSideContainer = styled.div`
-  background-color: ${props => props.theme.lightGray};
+  background-color: #f6f4fc;
 `;
 const ScheduleContainer = styled.div`
   margin: 0 auto;
   width: 360px;
   height: 812px;
-  background-color: ${props => props.theme.white};
+  background-color: white;
   position: relative;
 `;
 const NavigateButtonGroupContainer = styled.div`
