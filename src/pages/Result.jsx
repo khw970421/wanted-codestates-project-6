@@ -30,6 +30,7 @@ const Result = () => {
     });
   };
   const locationState = location.state;
+  console.log(locationState.address);
   return (
     <ResultSideContainer>
       <ResultContainer>
@@ -55,8 +56,8 @@ const Result = () => {
           <RoadJibunAddressContainer>
             <Text text={'돌봄주소'} textCenter={'normal'} bold={'bold'} />
             <RoadJibunAddress
-              roadAddr={locationState.address.roadAddr}
-              jibunAddr={locationState.address.jibunAddr}
+              roadAddr={locationState.address.roadAddress}
+              jibunAddr={locationState.address.jibunAddress}
             />
             <div>{locationState.address.detailAddr}</div>
           </RoadJibunAddressContainer>
