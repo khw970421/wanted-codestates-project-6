@@ -116,6 +116,7 @@ https://user-images.githubusercontent.com/59253551/160046714-7814379e-6d61-4f80-
 3. 여러번 사용하기위한 Text 컴포넌트나 Button 컴포넌트를 통해 재사용을 최대한 하면서 defaultProps를 사용하여 기본색에 대해서는 따로 props를 전달하지 않아서 코드를 줄였다고 생각한다.
 
 ## 폴더 구조
+```
 │  App.js
 │  index.js
 │  setupProxy.js
@@ -142,4 +143,5 @@ https://user-images.githubusercontent.com/59253551/160046714-7814379e-6d61-4f80-
 │
 └─utils
         axios.js
+```
 
