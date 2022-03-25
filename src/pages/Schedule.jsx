@@ -45,7 +45,13 @@ const Schedule = () => {
     setStartDate(start);
     setEndDate(end);
   };
+  const ConvertDateToStr = val => {
+    return `${val.getFullYear()}-${('0' + (val.getMonth() + 1)).slice(-2)}-${(
+      '0' + val.getDate()
+    ).slice(-2)}`;
+  };
 
+  // console.log(endDate.getDate(), endDate.getMonth() + 1, endDate.getFullYear());
   const checkButtonAvailable = () => {
     return (
       Boolean(startDate) &&
@@ -73,8 +79,8 @@ const Schedule = () => {
       state: {
         workType: selectTime,
         schedule: {
-          startDate,
-          endDate,
+          startDate: ConvertDateToStr(startDate),
+          endDate: ConvertDateToStr(endDate),
           visitTime: careStartTime,
           hour: dayCareTime,
         },
