@@ -55,8 +55,6 @@ const Schedule = () => {
     );
   };
 
-  console.log(startDate, endDate);
-
   const goBefore = () => {
     navigate('/care/select', {
       state: {
