@@ -1,4 +1,4 @@
-# [Project1] 케어닥 과제
+# [Project6] 케어닥 과제
 
 ## 요구사항 링크
 [노션 링크](https://caredoc.notion.site/caredoc/87aed4d99b1246a1a42fd5b065659cde)
