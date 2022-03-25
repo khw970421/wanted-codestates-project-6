@@ -13,7 +13,11 @@ const Result = () => {
   const location = useLocation();
   const [phone, setPhone] = useState('');
 
-  const changePhoneNumber = ({ target }) => setPhone(target.value);
+  //Finish : 번호 validation 체크
+  const changePhoneNumber = ({ target }) => {
+    let chkStyle = /^[0-9]*$/;
+    if (chkStyle.test(target.value)) setPhone(target.value);
+  };
   let navigate = useNavigate();
   const goBefore = () => {
     navigate('/care/address', {
@@ -38,11 +42,7 @@ const Result = () => {
         />
         <ResultReportContainer>
           <Title>
-            <Text
-              text={'신청 내역'}
-              textCenter={'normal'}
-              fontSize={16}
-            />
+            <Text text={'신청 내역'} textCenter={'normal'} fontSize={16} />
           </Title>
           <SelectContainer>
             <Text text={'돌봄 유형'} textCenter={'normal'} bold={'bold'} />
