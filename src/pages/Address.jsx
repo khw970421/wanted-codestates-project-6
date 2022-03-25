@@ -77,6 +77,7 @@ const Address = () => {
     if (code === 'Enter') {
       start(inputValue, 1);
       refContainer.current = 1;
+      setSearchCount([1, 2, 3, 4, 5]);
     }
   };
 
@@ -157,11 +158,7 @@ const Address = () => {
           <ModalDiv onClick={e => e.stopPropagation()}>
             <ModalTitle>
               <div></div>
-              <Text
-                text={'주소 검색'}
-                fontSize={16}
-           
-              />
+              <Text text={'주소 검색'} fontSize={16} />
               <ModalOutDiv onClick={ModalEvent}>x</ModalOutDiv>
             </ModalTitle>
             <DetailInput
