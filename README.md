@@ -103,6 +103,7 @@ https://user-images.githubusercontent.com/59253551/160046714-7814379e-6d61-4f80-
 
 #### 신청하는데 넣는 body 내용
 <img width="461" alt="image" src="https://user-images.githubusercontent.com/59253551/160046976-4803ce0c-bbed-48e3-874d-3746a6252f35.png">
+
 #### 도로명주소로부터 얻어온 데이터
 <img width="406" alt="image" src="https://user-images.githubusercontent.com/59253551/160046977-de444bd2-e699-4f95-a296-6242e08b1d82.png">
 
