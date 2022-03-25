@@ -27,9 +27,12 @@ const Address = () => {
   const [addressData, setAddressData] = useState({});
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
+  console.log(locationState);
+
   const goBefore = () => {
     navigate('/care/schedule', {
       state: {
+        ...locationState,
         address: {
           locationCode: addressData.zipNo,
           roadCode: addressData.emdNo,
@@ -41,35 +44,27 @@ const Address = () => {
           addressDetail: detailInputValue,
           myundongName: addressData.buldMnnm,
         },
-        ...locationState,
       },
     });
   };
   const goAfter = () => {
     navigate('/care/result', {
       state: {
+        ...locationState,
         address: {
           locationCode: addressData.zipNo,
           roadCode: addressData.emdNo,
           roadAddress: addressData.roadAddrPart1,
           jibunAddress: addressData.jibunAddr,
           sidoName: addressData.siNm,
-          sigunguName: addressData.roadAddrPart2,
+          sigunguName: addressData.sggNm,
           liName: addressData.liNm,
           addressDetail: detailInputValue,
           myundongName: addressData.buldMnnm,
         },
-        ...locationState,
       },
     });
   };
-  /*
-  address: {roadAddr: '서울특별시 강남구 강남대로 358(역삼동)', 
-            jibunAddr: '서울특별시 강남구 역삼동 826-14 강남358타워', 
-            zipNo: '06241', 
-            detailAddr: '1111'}
-  selectTime: "partTime"
-  */
 
   const ModalEvent = e => {
     setIsModalOpen(!isModalOpen);
@@ -84,6 +79,7 @@ const Address = () => {
     if (code === 'Enter') {
       start(inputValue, 1);
       refContainer.current = 1;
+      setSearchCount([1, 2, 3, 4, 5]);
     }
   };
 
@@ -164,12 +160,7 @@ const Address = () => {
           <ModalDiv onClick={e => e.stopPropagation()}>
             <ModalTitle>
               <div></div>
-              <Text
-                text={'주소 검색'}
-                fontSize={16}
-                bold={'bold'}
-                color={'#5B5555'}
-              />
+              <Text text={'주소 검색'} fontSize={16} />
               <ModalOutDiv onClick={ModalEvent}>x</ModalOutDiv>
             </ModalTitle>
             <DetailInput

@@ -6,7 +6,7 @@ const TextSelectCareType = ({ text }) => {
   return (
     <TextSelectCareTypeContainer>
       <TextSelectCareTypeSubContainer>
-        <Text text={text} fontSize={24} bold={'bold'} textCenter={'normal'} />
+        <Text text={text} fontSize={24} textCenter={'normal'} />
       </TextSelectCareTypeSubContainer>
     </TextSelectCareTypeContainer>
   );

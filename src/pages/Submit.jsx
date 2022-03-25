@@ -12,7 +12,6 @@ const Submit = () => {
     navigate('/');
   };
   useEffect(async () => {
-    console.log(location.state);
     const res = await postRegisterData(location.state);
     alert(res.message);
   }, []);
@@ -20,20 +19,10 @@ const Submit = () => {
     <SubmitSideContainer>
       <SubmitContainer>
         <Title>
-          <Text
-            text={'돌보미 신청하기'}
-            fontSize={16}
-            bold={'bold'}
-            color={'#5B5555'}
-          />
+          <Text text={'돌보미 신청하기'} fontSize={16} />
         </Title>
         <SubTitle>
-          <Text
-            text={'📱 신청이 완료되었습니다!'}
-            fontSize={24}
-            bold={'bold'}
-            color={'#5B5555'}
-          />
+          <Text text={'📱 신청이 완료되었습니다!'} fontSize={24} />
         </SubTitle>
         <TextContainer>
           <Text

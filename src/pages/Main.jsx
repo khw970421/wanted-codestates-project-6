@@ -11,11 +11,16 @@ const Main = () => {
   return (
     <MainSideContainer>
       <MainContainer>
-        <Text text={'어르신 돌보미'} fontSize={32} width={250} height={52} />
+        <Text
+          text={'어르신 돌보미'}
+          fontSize={32}
+          width={250}
+          height={52}
+          bold={'normal'}
+        />
         <Text
           text={'케어코디'}
           fontSize={32}
-          bold={'bold'}
           width={250}
           height={52}
           color={'#ff8450'}
