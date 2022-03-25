@@ -30,6 +30,7 @@ const Address = () => {
   const goBefore = () => {
     navigate('/care/schedule', {
       state: {
+        ...locationState,
         address: {
           locationCode: addressData.zipNo,
           roadCode: addressData.emdNo,
@@ -41,13 +42,13 @@ const Address = () => {
           addressDetail: detailInputValue,
           myundongName: addressData.buldMnnm,
         },
-        ...locationState,
       },
     });
   };
   const goAfter = () => {
     navigate('/care/result', {
       state: {
+        ...locationState,
         address: {
           locationCode: addressData.zipNo,
           roadCode: addressData.emdNo,
@@ -59,7 +60,6 @@ const Address = () => {
           addressDetail: detailInputValue,
           myundongName: addressData.buldMnnm,
         },
-        ...locationState,
       },
     });
   };
