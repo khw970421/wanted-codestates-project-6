@@ -51,7 +51,6 @@ const Schedule = () => {
     ).slice(-2)}`;
   };
 
-  // console.log(endDate.getDate(), endDate.getMonth() + 1, endDate.getFullYear());
   const checkButtonAvailable = () => {
     return (
       Boolean(startDate) &&
