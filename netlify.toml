@@ -1,0 +1,15 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://www.juso.go.kr/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/caredoc/*"
+  to = "https://caredoc-fe-server.herokuapp.com/:splat"
+  status = 200
+
+
+[[redirects]]
+  from = "/"
+  to ="/index.html"
+  status = 200
