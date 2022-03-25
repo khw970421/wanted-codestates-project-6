@@ -1,0 +1,69 @@
+.react-datepicker {
+  display: flex;
+  font-family: 'Helvetica Neue', helvetica, arial, sans-serif;
+  font-size: 18px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 0.3rem;
+  display: inline-block;
+  position: relative;
+  margin: 16px 0px;
+  padding: 5px;
+}
+
+.react-datepickerheader {
+  text-align: center;
+  background-color: #ffffff;
+  border: none;
+  border-top-left-radius: 0.3rem;
+  padding: 8px 0;
+  position: relative;
+}
+
+.normal-day {
+  background: white;
+  color: black !important;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.normal-day:hover {
+  background: #ff8450;
+  color: white !important;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.selected-day {
+  background: #ff8450 !important;
+  color: white !important;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.react-datepickerday--in-range .react-datepickerday--in-range:hover,
+.react-datepickerday--keyboard-selected {
+  background: #ff8450 !important;
+  border-radius: 50% !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+.react-datepickerday--in-selecting-range,
+.react-datepickerday--in-selecting-range:hover,
+.react-datepickerday--keyboard-selected:hover {
+  background-color: #ffcfb5;
+  color: #5b5555;
+}
+
+.react-datepickerday--selected,
+.react-datepickerday--selected:hover {
+  background: #ff8450 !important;
+  color: white !important;
+  border-radius: 50% !important;
+  font-weight: 700;
+}
+
+.react-datepickerday--in-selecting-range:not(.react-datepicker__day--in-range) {
+  background-color: #ffcfb5;
+}

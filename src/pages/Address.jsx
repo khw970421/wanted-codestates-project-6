@@ -27,7 +27,6 @@ const Address = () => {
   const [addressData, setAddressData] = useState({});
   const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
 
-  console.log(locationState);
 
   const goBefore = () => {
     navigate('/care/schedule', {

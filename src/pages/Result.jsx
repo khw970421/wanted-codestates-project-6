@@ -30,7 +30,6 @@ const Result = () => {
     });
   };
   const locationState = location.state;
-  console.log(locationState.address);
   return (
     <ResultSideContainer>
       <ResultContainer>

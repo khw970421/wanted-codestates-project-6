@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { getStaticData } from '../utils/axios';
 import DatePicker from 'react-datepicker';
 import Text from '../components/Text';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import '../styles/customDatePicker.css';
 
 /* eslint-disable */
 const careStartData = [
@@ -51,7 +51,6 @@ const Schedule = () => {
     ).slice(-2)}`;
   };
 
-  // console.log(endDate.getDate(), endDate.getMonth() + 1, endDate.getFullYear());
   const checkButtonAvailable = () => {
     return (
       Boolean(startDate) &&
@@ -118,7 +117,7 @@ const Schedule = () => {
             onChange={onChange}
             startDate={startDate}
             endDate={endDate}
-            selectsRange
+            selectsRange={true}
             inline
           />
         </DateContainer>
