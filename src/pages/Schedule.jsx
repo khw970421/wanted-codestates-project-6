@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { getStaticData } from '../utils/axios';
 import DatePicker from 'react-datepicker';
 import Text from '../components/Text';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import '../styles/customDatePicker.css';
 
 /* eslint-disable */
 const careStartData = [
@@ -118,7 +118,7 @@ const Schedule = () => {
             onChange={onChange}
             startDate={startDate}
             endDate={endDate}
-            selectsRange
+            selectsRange={true}
             inline
           />
         </DateContainer>
