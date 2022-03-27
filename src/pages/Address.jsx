@@ -76,7 +76,6 @@ const Address = () => {
   const checkEnter = async ({ code }) => {
     if (code === 'Enter') {
       const totalCount = await start(inputValue, 1);
-      console.log(totalCount);
       refContainer.current = 1;
       setSearchCount(checkTotalCountPage(totalCount));
     }
