@@ -25,8 +25,7 @@ const Address = () => {
   const [searchTotalCount, setSearchTotalCount] = useState(0);
   const [apiMesseage, setApiMessage] = useState('');
   const [addressData, setAddressData] = useState({});
-  const [searchCount, setSearchCount] = useState([1, 2, 3, 4, 5]);
-
+  const [searchCount, setSearchCount] = useState([]);
 
   const goBefore = () => {
     navigate('/care/schedule', {
@@ -74,20 +73,31 @@ const Address = () => {
       ModalEvent();
   };
 
-  const checkEnter = ({ code }) => {
+  const checkEnter = async ({ code }) => {
     if (code === 'Enter') {
-      start(inputValue, 1);
+      const totalCount = await start(inputValue, 1);
+      console.log(totalCount);
       refContainer.current = 1;
-      setSearchCount([1, 2, 3, 4, 5]);
+      setSearchCount(checkTotalCountPage(totalCount));
+    }
+  };
+
+  const checkTotalCountPage = count => {
+    const arr = [];
+    if (count <= 25) {
+      for (let i = 1; i <= Math.ceil(count / 5); i++) arr.push(i);
+      return arr;
+    } else {
+      return [1, 2, 3, 4, 5];
     }
   };
 
   const start = async (target, page) => {
     const res = await getRepository(target, page);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
-    setSearchTotalCount(
-      JSON.parse(res.slice(1, res.length - 1))?.results?.common?.totalCount,
-    );
+    const totalCount = JSON.parse(res.slice(1, res.length - 1))?.results?.common
+      ?.totalCount;
+    setSearchTotalCount(totalCount);
     setApiMessage(
       JSON.parse(res.slice(1, res.length - 1))?.results?.common?.errorMessage,
     );
@@ -101,6 +111,7 @@ const Address = () => {
     } else {
       setSearchAddressArr(filterObj || []);
     }
+    return totalCount;
   };
 
   const changeValue = ({ target }) => {
