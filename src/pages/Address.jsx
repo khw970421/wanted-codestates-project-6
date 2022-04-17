@@ -82,15 +82,15 @@ const Address = () => {
   };
 
   const checkTotalCountPage = count => {
-    const arr = [];
     if (count <= 25) {
-      for (let i = 1; i <= Math.ceil(count / 5); i++) arr.push(i);
-      return arr;
+      // 할수있는 페이지만큼 생성
+      return Array.from({ length: Math.ceil(count / 5) }, (_, i) => i + 1);
     } else {
       return [1, 2, 3, 4, 5];
     }
   };
 
+  // 주소 api 가져와서 처리
   const start = async (target, page) => {
     const res = await getRepository(target, page);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
@@ -124,12 +124,13 @@ const Address = () => {
 
   const findLeft = () => {
     if (searchCount[0] !== 1) {
-      start(inputValue, searchCount[0] - 5);
-      while (searchCount.length !== 5) {
-        searchCount.push(searchCount[searchCount.length - 1] + 1);
-      }
       refContainer.current = searchCount[0] - 5;
-      setSearchCount(searchCount.map(val => val - 5));
+      start(inputValue, refContainer.current);
+
+      // 현재 위치에서부터 이전껏은 무조건 5개를 만족시키니 Array.from으로 5개 적용
+      setSearchCount(
+        Array.from({ length: 5 }, (_, i) => refContainer.current + i),
+      );
     } else {
       alert('첫번째 페이지입니다.');
     }
