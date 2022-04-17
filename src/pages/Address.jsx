@@ -138,11 +138,14 @@ const Address = () => {
   const findRight = () => {
     if (searchCount.length === 5) {
       refContainer.current = searchCount[0] + 5;
-      const res = searchCount
-        .map(val => val + 5)
-        .filter(val => val <= Math.ceil(searchTotalCount / 5));
-      start(inputValue, searchCount[4] + 1);
-      setSearchCount(res);
+      start(inputValue, refContainer.current);
+
+      // 5개의 배열중에서 마지막 페이지 전체 Math.ceil(count/5) 를 한 것보다 작거나 같은 것들만 처리
+      setSearchCount(
+        Array.from({ length: 5 }, (_, i) => refContainer.current + i).filter(
+          val => val <= Math.ceil(searchTotalCount / 5),
+        ),
+      );
     } else {
       alert('마지막 페이지입니다.');
     }
