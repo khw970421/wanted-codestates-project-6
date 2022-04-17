@@ -13,7 +13,7 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
   const [searchAddressArr, setSearchAddressArr] = useState([]);
   const [searchTotalCount, setSearchTotalCount] = useState(0);
   const [apiMesseage, setApiMessage] = useState('');
-  const [searchCount, setCount] = useState([]);
+  const [searchCountState, setPaginationCountState] = useState([]);
 
   // Input onChange 및 KeyPress 이벤트
   const changeValue = ({ target }) => {
@@ -24,14 +24,17 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
     if (code === 'Enter') {
       const totalCount = await searchAPI(inputValue, currentPage, countPerPage);
       refContainer.current = currentPage;
-      setCount(checkFirstCountPage(totalCount));
+      setPaginationCountState(checkFirstCountPage(totalCount));
     }
   };
 
   const checkFirstCountPage = count => {
     if (count <= paginationCount * countPerPage) {
       // 할수있는 페이지만큼 생성
-      return Array.from({ length: Math.ceil(count / 5) }, (_, i) => i + 1);
+      return Array.from(
+        { length: Math.ceil(count / paginationCount) },
+        (_, i) => i + 1,
+      );
     } else {
       return Array.from({ length: paginationCount }, (_, i) => i + 1);
     }
@@ -67,12 +70,14 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
   };
 
   const findLeft = () => {
-    if (searchCount[0] !== 1) {
-      refContainer.current = searchCount[0] - 5;
+    if (searchCountState[0] !== 1) {
+      refContainer.current = searchCountState[0] - 5;
       searchAPI(inputValue, refContainer.current, 5);
 
       // 현재 위치에서부터 이전껏은 무조건 5개를 만족시키니 Array.from으로 5개 적용
-      setCount(Array.from({ length: 5 }, (_, i) => refContainer.current + i));
+      setPaginationCountState(
+        Array.from({ length: 5 }, (_, i) => refContainer.current + i),
+      );
     } else {
       alert('첫번째 페이지입니다.');
     }
@@ -81,15 +86,15 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
     // 현재 5개의 페이지가 있고 해당 페이지의 맨 마지막 값이 전체Count랑 같지만 않다면 실행
     // 25개의 경우 if문을 실행할 수 있어 if문에서&&로 추가 예외처리
     if (
-      searchCount.length === 5 &&
-      searchCount[searchCount.length - 1] * 5 !== searchTotalCount
+      searchCountState.length === 5 &&
+      searchCountState[searchCountState.length - 1] * 5 !== searchTotalCount
     ) {
-      refContainer.current = searchCount[0] + 5;
+      refContainer.current = searchCountState[0] + 5;
       searchAPI(inputValue, refContainer.current, 5);
 
       // 5개의 배열중에서 마지막 페이지 전체 Math.ceil(count/5) 를 한 것보다 작거나 같은 것들만 처리
-      setCount(
-        Array.from({ length: 6 }, (_, i) => refContainer.current + i).filter(
+      setPaginationCountState(
+        Array.from({ length: 5 }, (_, i) => refContainer.current + i).filter(
           val => val <= Math.ceil(searchTotalCount / 5),
         ),
       );
@@ -119,7 +124,7 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
       {searchAddressArr.length !== 0 && (
         <SearchCountContainer>
           <FaArrowLeft onClick={findLeft} />
-          {searchCount.map((val, idx) => (
+          {searchCountState.map((val, idx) => (
             <SearchCount
               key={idx}
               id={val}
