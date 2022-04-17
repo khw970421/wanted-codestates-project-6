@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import styled from 'styled-components';
 /*eslint-disable*/
 
-const paginationCount = 5;
+const paginationCount = 6;
 
 const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
   const refContainer = useRef(1);
@@ -71,12 +71,15 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
 
   const findLeft = () => {
     if (paginationCountState[0] !== 1) {
-      refContainer.current = paginationCountState[0] - countPerPage;
+      refContainer.current = paginationCountState[0] - paginationCount;
       searchAPI(inputValue, refContainer.current, countPerPage);
 
       // 현재 위치에서부터 이전껏은 무조건 5개를 만족시키니 Array.from으로 5개 적용
       setPaginationCountState(
-        Array.from({ length: 5 }, (_, i) => refContainer.current + i),
+        Array.from(
+          { length: paginationCount },
+          (_, i) => refContainer.current + i,
+        ),
       );
     } else {
       alert('첫번째 페이지입니다.');
@@ -86,18 +89,19 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
     // 현재 5개의 페이지가 있고 해당 페이지의 맨 마지막 값이 전체Count랑 같지만 않다면 실행
     // 25개의 경우 if문을 실행할 수 있어 if문에서&&로 추가 예외처리
     if (
-      paginationCountState.length === 5 &&
-      paginationCountState[paginationCountState.length - 1] * 5 !==
+      paginationCountState.length === paginationCount &&
+      paginationCountState[paginationCountState.length - 1] * countPerPage !==
         searchTotalCount
     ) {
-      refContainer.current = paginationCountState[0] + countPerPage;
+      refContainer.current = paginationCountState[0] + paginationCount;
       searchAPI(inputValue, refContainer.current, countPerPage);
 
       // 5개의 배열중에서 마지막 페이지 전체 Math.ceil(count/5) 를 한 것보다 작거나 같은 것들만 처리
       setPaginationCountState(
-        Array.from({ length: 5 }, (_, i) => refContainer.current + i).filter(
-          val => val <= Math.ceil(searchTotalCount / 5),
-        ),
+        Array.from(
+          { length: paginationCount },
+          (_, i) => refContainer.current + i,
+        ).filter(val => val <= Math.ceil(searchTotalCount / paginationCount)),
       );
     } else {
       alert('마지막 페이지입니다.');
