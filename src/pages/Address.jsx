@@ -73,15 +73,20 @@ const Address = () => {
       ModalEvent();
   };
 
+  // Input onChange 및 KeyPress 이벤트
+  const changeValue = ({ target }) => {
+    setInputValue(target.value);
+  };
+
   const checkEnter = async ({ code }) => {
     if (code === 'Enter') {
-      const totalCount = await start(inputValue, 1);
+      const totalCount = await searchAPI(inputValue, 1);
       refContainer.current = 1;
-      setSearchCount(checkTotalCountPage(totalCount));
+      setSearchCount(checkFirstCountPage(totalCount));
     }
   };
 
-  const checkTotalCountPage = count => {
+  const checkFirstCountPage = count => {
     if (count <= 25) {
       // 할수있는 페이지만큼 생성
       return Array.from({ length: Math.ceil(count / 5) }, (_, i) => i + 1);
@@ -91,7 +96,7 @@ const Address = () => {
   };
 
   // 주소 api 가져와서 처리
-  const start = async (target, page) => {
+  const searchAPI = async (target, page) => {
     const res = await getRepository(target, page);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
     const totalCount = JSON.parse(res.slice(1, res.length - 1))?.results?.common
@@ -113,19 +118,16 @@ const Address = () => {
     return totalCount;
   };
 
-  const changeValue = ({ target }) => {
-    setInputValue(target.value);
-  };
-
+  // 페이지 숫자 선택시 해당 ref로 refContainer 변경 및 searchAPI 재시작
   const clickIdx = e => {
     refContainer.current = Number(e.target.id);
-    start(inputValue, refContainer.current);
+    searchAPI(inputValue, refContainer.current);
   };
 
   const findLeft = () => {
     if (searchCount[0] !== 1) {
       refContainer.current = searchCount[0] - 5;
-      start(inputValue, refContainer.current);
+      searchAPI(inputValue, refContainer.current);
 
       // 현재 위치에서부터 이전껏은 무조건 5개를 만족시키니 Array.from으로 5개 적용
       setSearchCount(
@@ -136,9 +138,14 @@ const Address = () => {
     }
   };
   const findRight = () => {
-    if (searchCount.length === 5) {
+    // 현재 5개의 페이지가 있고 해당 페이지의 맨 마지막 값이 전체Count랑 같지만 않다면 실행
+    // 25개의 경우 if문을 실행할 수 있어 if문에서&&로 추가 예외처리
+    if (
+      searchCount.length === 5 &&
+      searchCount[searchCount.length - 1] * 5 !== searchTotalCount
+    ) {
       refContainer.current = searchCount[0] + 5;
-      start(inputValue, refContainer.current);
+      searchAPI(inputValue, refContainer.current);
 
       // 5개의 배열중에서 마지막 페이지 전체 Math.ceil(count/5) 를 한 것보다 작거나 같은 것들만 처리
       setSearchCount(
