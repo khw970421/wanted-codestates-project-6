@@ -13,7 +13,7 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
   const [searchAddressArr, setSearchAddressArr] = useState([]);
   const [searchTotalCount, setSearchTotalCount] = useState(0);
   const [apiMesseage, setApiMessage] = useState('');
-  const [searchCountState, setPaginationCountState] = useState([]);
+  const [paginationCountState, setPaginationCountState] = useState([]);
 
   // Input onChange 및 KeyPress 이벤트
   const changeValue = ({ target }) => {
@@ -66,13 +66,13 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
   // 페이지 숫자 선택시 해당 ref로 refContainer 변경 및 searchAPI 재시작
   const clickIdx = e => {
     refContainer.current = Number(e.target.id);
-    searchAPI(inputValue, refContainer.current, 5);
+    searchAPI(inputValue, refContainer.current, countPerPage);
   };
 
   const findLeft = () => {
-    if (searchCountState[0] !== 1) {
-      refContainer.current = searchCountState[0] - 5;
-      searchAPI(inputValue, refContainer.current, 5);
+    if (paginationCountState[0] !== 1) {
+      refContainer.current = paginationCountState[0] - countPerPage;
+      searchAPI(inputValue, refContainer.current, countPerPage);
 
       // 현재 위치에서부터 이전껏은 무조건 5개를 만족시키니 Array.from으로 5개 적용
       setPaginationCountState(
@@ -86,11 +86,12 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
     // 현재 5개의 페이지가 있고 해당 페이지의 맨 마지막 값이 전체Count랑 같지만 않다면 실행
     // 25개의 경우 if문을 실행할 수 있어 if문에서&&로 추가 예외처리
     if (
-      searchCountState.length === 5 &&
-      searchCountState[searchCountState.length - 1] * 5 !== searchTotalCount
+      paginationCountState.length === 5 &&
+      paginationCountState[paginationCountState.length - 1] * 5 !==
+        searchTotalCount
     ) {
-      refContainer.current = searchCountState[0] + 5;
-      searchAPI(inputValue, refContainer.current, 5);
+      refContainer.current = paginationCountState[0] + countPerPage;
+      searchAPI(inputValue, refContainer.current, countPerPage);
 
       // 5개의 배열중에서 마지막 페이지 전체 Math.ceil(count/5) 를 한 것보다 작거나 같은 것들만 처리
       setPaginationCountState(
@@ -124,7 +125,7 @@ const Page = ({ clickAddress, currentPage = 1, countPerPage = 5 }) => {
       {searchAddressArr.length !== 0 && (
         <SearchCountContainer>
           <FaArrowLeft onClick={findLeft} />
-          {searchCountState.map((val, idx) => (
+          {paginationCountState.map((val, idx) => (
             <SearchCount
               key={idx}
               id={val}
