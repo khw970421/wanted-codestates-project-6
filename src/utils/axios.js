@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const getRepository = async (target, page) => {
+const getRepository = async (target, currentPage, countPerPage) => {
   const params = {
     keyword: target,
-    currentPage: page,
-    countPerPage: 5,
+    currentPage,
+    countPerPage,
     confmKey: process.env.REACT_APP_SERVICE_KEY,
     resultType: 'json',
   };

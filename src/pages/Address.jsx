@@ -80,7 +80,7 @@ const Address = () => {
 
   const checkEnter = async ({ code }) => {
     if (code === 'Enter') {
-      const totalCount = await searchAPI(inputValue, 1);
+      const totalCount = await searchAPI(inputValue, 1, 5);
       refContainer.current = 1;
       setSearchCount(checkFirstCountPage(totalCount));
     }
@@ -96,8 +96,8 @@ const Address = () => {
   };
 
   // 주소 api 가져와서 처리
-  const searchAPI = async (target, page) => {
-    const res = await getRepository(target, page);
+  const searchAPI = async (target, currentPage, countPerPage) => {
+    const res = await getRepository(target, currentPage, countPerPage);
     const filterObj = JSON.parse(res.slice(1, res.length - 1))?.results?.juso;
     const totalCount = JSON.parse(res.slice(1, res.length - 1))?.results?.common
       ?.totalCount;
@@ -121,13 +121,13 @@ const Address = () => {
   // 페이지 숫자 선택시 해당 ref로 refContainer 변경 및 searchAPI 재시작
   const clickIdx = e => {
     refContainer.current = Number(e.target.id);
-    searchAPI(inputValue, refContainer.current);
+    searchAPI(inputValue, refContainer.current, 5);
   };
 
   const findLeft = () => {
     if (searchCount[0] !== 1) {
       refContainer.current = searchCount[0] - 5;
-      searchAPI(inputValue, refContainer.current);
+      searchAPI(inputValue, refContainer.current, 5);
 
       // 현재 위치에서부터 이전껏은 무조건 5개를 만족시키니 Array.from으로 5개 적용
       setSearchCount(
@@ -145,11 +145,11 @@ const Address = () => {
       searchCount[searchCount.length - 1] * 5 !== searchTotalCount
     ) {
       refContainer.current = searchCount[0] + 5;
-      searchAPI(inputValue, refContainer.current);
+      searchAPI(inputValue, refContainer.current, 5);
 
       // 5개의 배열중에서 마지막 페이지 전체 Math.ceil(count/5) 를 한 것보다 작거나 같은 것들만 처리
       setSearchCount(
-        Array.from({ length: 5 }, (_, i) => refContainer.current + i).filter(
+        Array.from({ length: 6 }, (_, i) => refContainer.current + i).filter(
           val => val <= Math.ceil(searchTotalCount / 5),
         ),
       );
